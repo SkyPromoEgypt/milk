@@ -1,87 +1,101 @@
 <?php
-class Template {
-	protected $cssResource = array (
-			'reset.css',
-			'main.css',
-			'viewer.css',
-			'form.css' 
-	);
-	protected $jsResource = array (
-			'jquery.js',
-			'easing.js',
-			'banner.js',
-			'tooltip.js',
-			'viewer.js',
-			'sp.js',
-			'news.js',
-			'core.js' 
-	);
-	protected $templateFiles = array (
-			'header',
-			'sidebar',
-			'body',
-			'footer', 
-	);
-	
-	/**
-	 * The constructor will setup the page by calling the head resources
-	 * then will call the template files.
-	 * Please do put the file names in
-	 * the templateFiles array in the order you want the page to be shown.
-	 */
-	public function __construct() {
-		if ($this->webIsEnabled ()) {
-			$this->setupPage ();
-			$this->callTemplateParts ( $this->templateFiles );
-			$this->setupPageEnd ();
-		} else {
-			$_GET ['view'] = 'down';
-			$this->setupPage ();
-			$this->callTemplateParts ( $this->templateFiles );
-			$this->setupPageEnd ();
-		}
-	}
-	
-	/**
-	 * The function will call the head of the webpage using HTML5 Document Type
-	 * then will setup up the rest of the page options like encoding, title,
-	 * resource
-	 * base path and calling the css and JavaScript resources.
-	 *
-	 * @return void;
-	 */
-	private function setupPage() {
-		$output = '<!DOCTYPE html><html lang="en"><head>';
-		$output .= $this->setCharacterEncoding ();
-		$output .= $this->setPageTitle ();
-		$output .= $this->setBasePath ();
-		$output .= $this->fixHTML5 ();
-		$output .= $this->registerCustomResources();
-		$output .= '</head><body>';
-		echo $output;
-	}
-	private function setupPageEnd() {
-		echo '</body></html>';
-	}
-	private function setPageTitle() {
-		return '<title>:. Milk Production Management Systems .:</title>';
-	}
-	private function setCharacterEncoding($encode = 'utf-8') {
-		return '<meta charset="' . $encode . '">';
-	}
-	private function setBasePath() {
-		return '<base href="' . HOST_NAME . '">';
-	}
-	private function registerResource($type, Array $files) {
-		$minifyString = GOOGLE_MINIFY_PATH . '/?b=';
-		$minifyString .= ($type == 'css') ? CSS_DIR : JS_DIR;
-		$minifyString .= '&amp;f=';
-		$minifyString .= join ( ',', $files );
-		$resourceTag = ($type == 'css') ? '<link rel="stylesheet" href="' . $minifyString . '" media="all">' : '<script src="' . $minifyString . '"></script>';
-		return $resourceTag;
-	}
-	private function registerCustomResources() {
-		return '<!-- Required Stylesheets -->
+
+class Template
+{
+
+    protected $cssResource = array(
+            'reset.css',
+            'main.css',
+            'viewer.css',
+            'form.css'
+    );
+
+    protected $jsResource = array(
+            'jquery.js',
+            'easing.js',
+            'banner.js',
+            'tooltip.js',
+            'viewer.js',
+            'sp.js',
+            'news.js',
+            'core.js'
+    );
+
+    protected $templateFiles = array(
+            'header',
+            'sidebar',
+            'body',
+            'footer'
+    );
+
+    /**
+     * The constructor will setup the page by calling the head resources
+     * then will call the template files.
+     * Please do put the file names in
+     * the templateFiles array in the order you want the page to be shown.
+     */
+    public function __construct ()
+    {
+        $this->setupPage();
+        $this->callTemplateParts($this->templateFiles);
+        $this->setupPageEnd();
+    }
+
+    /**
+     * The function will call the head of the webpage using HTML5 Document Type
+     * then will setup up the rest of the page options like encoding, title,
+     * resource
+     * base path and calling the css and JavaScript resources.
+     *
+     * @return void;
+     */
+    private function setupPage ()
+    {
+        $output = '<!DOCTYPE html><html lang="en"><head>';
+        $output .= $this->setCharacterEncoding();
+        $output .= $this->setPageTitle();
+        $output .= $this->setBasePath();
+        $output .= $this->fixHTML5();
+        $output .= $this->registerCustomResources();
+        $output .= '</head><body>';
+        echo $output;
+    }
+
+    private function setupPageEnd ()
+    {
+        echo '</body></html>';
+    }
+
+    private function setPageTitle ()
+    {
+        return '<title>:. Milk Production Management Systems .:</title>';
+    }
+
+    private function setCharacterEncoding ($encode = 'utf-8')
+    {
+        return '<meta charset="' . $encode . '">';
+    }
+
+    private function setBasePath ()
+    {
+        return '<base href="' . HOST_NAME . '">';
+    }
+
+    private function registerResource ($type, Array $files)
+    {
+        $minifyString = GOOGLE_MINIFY_PATH . '/?b=';
+        $minifyString .= ($type == 'css') ? CSS_DIR : JS_DIR;
+        $minifyString .= '&amp;f=';
+        $minifyString .= join(',', $files);
+        $resourceTag = ($type == 'css') ? '<link rel="stylesheet" href="' .
+                 $minifyString . '" media="all">' : '<script src="' .
+                 $minifyString . '"></script>';
+        return $resourceTag;
+    }
+
+    private function registerCustomResources ()
+    {
+        return '<!-- Required Stylesheets -->
 				<link rel="stylesheet" type="text/css" href="css/reset.css" media="screen" />
 				<link rel="stylesheet" type="text/css" href="css/text.css" media="screen" />
 				<link rel="stylesheet" type="text/css" href="css/fonts/ptsans/stylesheet.css" media="screen" />
@@ -137,25 +151,29 @@ class Template {
 				<script type="text/javascript" src="js/themer.js"></script>
 				
 				<script type="text/javascript" src="js/demo.dashboard.js"></script>';
-	}
-	private function fixHTML5() {
-		return '<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->';
-	}
-	private function callTemplateParts(Array $templateFiles) {
-		foreach ( $templateFiles as $file ) {
-			$path = Helper::urlContains ( '_administrator' ) ? ADMIN_TEMPLATE_PATH : TEMPLATE_PATH;
-			require_once $path . $file . '.tpl.php';
-		}
-	}
-	public function addClass($className) {
-		return $className;
-	}
-	public function highlight($view, $add = false) {
-		$classToAdd = $add ? ' ' . $add : '';
-		echo Helper::getView () == $view ? 'class="selected' . $classToAdd . '"' : '';
-	}
-	private function webIsEnabled() {
-		$settings = Settings::read ( "SELECT * FROM settings WHERE id = 1", PDO::FETCH_CLASS, 'Settings' );
-		return $settings->status == 1 ? true : false;
-	}
+    }
+
+    private function fixHTML5 ()
+    {
+        return '<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->';
+    }
+
+    private function callTemplateParts (Array $templateFiles)
+    {
+        foreach ($templateFiles as $file) {
+            $path = Helper::urlContains('_administrator') ? ADMIN_TEMPLATE_PATH : TEMPLATE_PATH;
+            require_once $path . $file . '.tpl.php';
+        }
+    }
+
+    public function addClass ($className)
+    {
+        return $className;
+    }
+
+    public function highlight ($view, $add = false)
+    {
+        $classToAdd = $add ? ' ' . $add : '';
+        echo Helper::getView() == $view ? 'class="selected' . $classToAdd . '"' : '';
+    }
 }

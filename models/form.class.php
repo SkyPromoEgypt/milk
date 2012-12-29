@@ -6,6 +6,8 @@ class Form
     private $_requiredFields;
 
     private $_object;
+    
+    private $_tableName;
 
     private $_requiredAttributes;
 
@@ -19,11 +21,12 @@ class Form
 
     private $onNotFound = 'Sorry, item doesn\'t exixts';
 
-    public function __construct ($className, Array $attributes, 
+    public function __construct ($className, $tableName, Array $attributes, 
             Array $requiredFields, $redirectPage)
     {
         $this->_requiredFields = $requiredFields;
         $this->_object = $className;
+        $this->_tableName = $tableName;
         $this->_requiredAttributes = $attributes;
         $this->_redirectPage = $redirectPage;
     }
@@ -85,7 +88,7 @@ class Form
             $element = call_user_func(array(
                     $this->_object,
                     "read"
-            ), "SELECT * FROM categories WHERE id = " . $id, PDO::FETCH_CLASS, 
+            ), "SELECT * FROM " . $this->_tableName . " WHERE id = " . $id, PDO::FETCH_CLASS, 
                     $this->_object);
             if (! $element) {
                 Messenger::setMessenger($this->onNotFound);
@@ -115,21 +118,5 @@ class Form
     public static function _e ($field, $object = null)
     {
         echo (is_object($object)) ? $object->$field : $_POST[$field];
-    }
-
-    private static function _t ($field, $object = null)
-    {
-        return (is_object($object)) ? $object->$field : $_POST[$field];
-    }
-
-    public static function textarea ($fieldName, $object, $lang = false)
-    {
-        $initialValue = self::_t($fieldName, $object);
-        $ckeditor = new CKEditor();
-        $ckeditor->basePath = HOST_NAME . '_libraries/ckeditor/';
-        if ($lang)
-            $ckeditor->config['language'] = "ar";
-        CKFinder::SetupCKEditor($ckeditor);
-        $ckeditor->editor($fieldName, $initialValue);
     }
 }

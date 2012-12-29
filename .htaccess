@@ -8,5 +8,7 @@ RewriteRule ^.*$ - [NC,L]
 
 
 RewriteRule ^([A-Za-z0-9\-]+)$ index.php?view=$1 [NC,L]
-RewriteRule ^([A-Za-z0-9]+)/([A-Za-z]+)$ index.php?view=$1&task=$2 [NC,L]
+RewriteRule ^([A-Za-z0-9\-]+)(\/page=)?(\d+)?$ index.php?view=$1&page=$3 [NC,L] 
+RewriteRule ^([A-Za-z0-9\-]+)/([A-Za-z]+)$ index.php?view=$1&task=$2 [NC,L]
+RewriteRule ^([A-Za-z0-9\-]+)/([A-Za-z]+)/([0-9]+)$ index.php?view=$1&task=$2&id=$3 [NC,L]
 RewriteRule ^.*$ index.php [NC,L]

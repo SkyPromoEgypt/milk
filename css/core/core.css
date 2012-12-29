@@ -10,6 +10,25 @@ body
 	font:13px/1.5 'PTSansRegular', Arial, Helvetica, sans-serif;
 }
 
+p.error, p.warning, p.info, p.message {
+	margin: 5px 0;
+	padding: 3px 7px;
+	border-radius: 5px;
+	color: white;
+}
+p.error {
+	background: #D20000;
+}
+p.info {
+	background:#0065D0;
+}
+p.warning {
+	background: #D08300;
+}
+p.message {
+	background: #339600;
+}
+
 .mws-inset
 {
 	background-image:url(../../images/core/mws-inset.png);
