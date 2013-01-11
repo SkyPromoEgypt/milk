@@ -14,7 +14,6 @@ $item = new Form("Farmer", "farmers",
                 "address" => "The farmer's address",
                 "phone" => "The farmer's phone",
                 "notes" => "The farmer's notes",
-                "status" => "The farmer's status"
         ), "/farmers-farmers");
 
 $task = $item->getTask();

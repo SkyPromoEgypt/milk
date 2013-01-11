@@ -31,10 +31,15 @@ class Farmer extends DatabaseModel
 
     public static function renderForControl ()
     {
-        
-        $items = self::read("SELECT * FROM farmers", PDO::FETCH_CLASS, __CLASS__);
+        $items = self::read("SELECT * FROM farmers", PDO::FETCH_CLASS, 
+                __CLASS__);
         
         $mainUrl = '/farmers-farmers';
+        
+        $message = 'Do you really want to delete this item ?';
+        
+        $js = 'if(confirm(\'' . $message .
+                 '\')) { return true; } else { return false; }';
         
         $output = '<div class="mws-panel grid_8">
                 	<div class="mws-panel-header">
@@ -44,8 +49,8 @@ class Farmer extends DatabaseModel
                 		<div class="mws-panel-toolbar top clearfix">
                 			<ul>
                 				<li><a class="mws-ic-16 ic-add" href="/farmers-farmers/add">Add</a></li>
-                				<li><a class="mws-ic-16 ic-edit" href="/farmers-farmers/edit">Edit</a></li>
-                				<li><a class="mws-ic-16 ic-cross" href="/farmers-farmers/delete">Delete</a></li>
+                				<li><a class="mws-ic-16 ic-edit" id="editLink" href="/farmers-farmers/edit">Edit</a></li>
+                				<li><a class="mws-ic-16 ic-cross" id="deleteLink" href="/farmers-farmers/delete" onclick="' . $js . '">Delete</a></li>
                 			</ul>
                 		</div>
                 		<table class="mws-datatable-fn mws-table">
@@ -59,14 +64,11 @@ class Farmer extends DatabaseModel
                 				</tr>
                 			</thead>
                 			<tbody>';
-        $i = 1;
-        $message = 'Do you really want to delete this item ?';
-        $js = 'if(confirm(\'' . $message .
-                 '\')) { return true; } else { return false; }';
         
         if (! is_array($items)) {
             $output .= '<tr class="gradeX">
-					<td><input type="checkbox" /></td>
+					<td><input class="idSwitcher" type="radio" rel="' .
+                     $items->id . '" /></td>
 					<td>MPRD-' . $items->id . '</td>
 					<td>' . $items->name . '</td>
 					<td>' . $items->age . ' </td>
@@ -76,7 +78,8 @@ class Farmer extends DatabaseModel
             foreach ($items as $item) {
                 $output .= '
     			<tr class="gradeX">
-					<td><input type="checkbox" /></td>
+					<td><input class="idSwitcher" rel="' .
+                         $item->id . '" type="radio" name="selectedRecord" /></td>
 					<td>MPRD-' . $item->id . '</td>
 					<td>' . $item->name . '</td>
 					<td>' . $item->age . ' </td>

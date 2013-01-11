@@ -239,4 +239,14 @@ $(document).ready(function() {
 	$("#mws-growl-btn-2").bind("click", function(event) {
 		$.jGrowl("Message with Header", {header: "Important!", position: "bottom-right"});
 	});
+	
+	var url = 'http://' + window.location.hostname + window.location.pathname;
+	/* Change editable item id */
+	$('.idSwitcher').each(function(element, index) {
+		var id = $(this).attr('rel');
+		$(this).click(function(){
+			$('#editLink').attr('href', url + '/edit/' + id);
+			$('#deleteLink').attr('href', url + '/delete/' + id);
+		});
+	});
 });
