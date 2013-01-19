@@ -20,33 +20,38 @@ $(document).ready(function() {
 	$(".mws-progressbar").progressbar({value: 37});
 	
 	$(".mws-range-slider").slider({range: true, min:0, max: 500, values: [75, 300]});
-	
-	var availableTags = [
-		"ActionScript",
-		"AppleScript",
-		"Asp",
-		"BASIC",
-		"C",
-		"C++",
-		"Clojure",
-		"COBOL",
-		"ColdFusion",
-		"Erlang",
-		"Fortran",
-		"Groovy",
-		"Haskell",
-		"Java",
-		"JavaScript",
-		"Lisp",
-		"Perl",
-		"PHP",
-		"Python",
-		"Ruby",
-		"Scala",
-		"Scheme"
-	];
-	$( ".mws-autocomplete" ).autocomplete({
-		source: availableTags
+
+	$( ".nameautocomplete" ).keyup(function()
+	{
+		element = $(this);
+		$.ajax({
+			type: "POST",
+			url : "http://" + window.location.hostname + "/ajax-farmers",
+			data : {
+				name : element.val()
+			},
+			dataType : "json",
+			beforeSend : function() {
+				
+			},
+			success : function(results) {
+				element.autoCompleteSource = [];
+
+				if(typeof results.length == 'undefined') {
+					element.autoCompleteSource[element.autoCompleteSource.length] = 'MPRDFarmer-' + results.id + '-' + results.name;
+				} else {
+					for( var i = 0, ii = results.length; i < ii; i++) {
+						element.autoCompleteSource[element.autoCompleteSource.length] = 'MPRDFarmer-' + results[i].id + '-' + results[i].name;;
+					}
+				}
+				element.autocomplete({ source: element.autoCompleteSource });
+			}
+		});
+	}).blur(function()
+	{
+		var pattern = /MPRDFarmer-(\d+)-.*/gi;
+		var value = $(this).val().replace(pattern, "$1");
+		$("#theid").val(value);
 	});
 	
 	$("#mws-jui-dialog").dialog({
@@ -240,11 +245,13 @@ $(document).ready(function() {
 		$.jGrowl("Message with Header", {header: "Important!", position: "bottom-right"});
 	});
 	
+	/* Enable edit and delete links */
 	var url = 'http://' + window.location.hostname + window.location.pathname;
-	/* Change editable item id */
 	$('.idSwitcher').each(function(element, index) {
 		var id = $(this).attr('rel');
 		$(this).click(function(){
+			$('#editLink').css({ display : "block"});
+			$('#deleteLink').css({ display : "block"});
 			$('#editLink').attr('href', url + '/edit/' + id);
 			$('#deleteLink').attr('href', url + '/delete/' + id);
 		});

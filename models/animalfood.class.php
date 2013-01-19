@@ -1,32 +1,20 @@
 <?php
 
-class Farmer extends DatabaseModel
+class AnimalFood extends DatabaseModel
 {
 
     public $id;
 
     public $name;
 
-    public $age;
+    public $quantity;
 
-    public $address;
-
-    public $phone;
-
-    public $notes;
-
-    public $status;
-
-    protected $tableName = "farmers";
+    protected $tableName = "animalfood";
 
     protected $fields = array(
             'id',
             'name',
-            'age',
-            'address',
-            'phone',
-            'notes',
-            'status'
+            'quantity'
     );
 
     public static function renderForControl ($sql, $className)
@@ -42,7 +30,7 @@ class Farmer extends DatabaseModel
         
         $output = '<div class="mws-panel grid_8">
                     <div class="mws-panel-header">
-                        <span class="mws-i-24 i-table-1">List of all farmers in the database</span>
+                        <span class="mws-i-24 i-table-1">List of all animal food in the database</span>
                     </div>
                     <div class="mws-panel-body">
                         <div class="mws-panel-toolbar top clearfix">
@@ -56,10 +44,9 @@ class Farmer extends DatabaseModel
                             <thead>
                                 <tr>
                                     <td></td>
-                                    <th>Farmers Code</th>
-                                    <th>Farmers Name</th>
-                                    <th>Age</th>
-                                    <th>Address</th>
+                                    <th>Item Code</th>
+                                    <th>Item Name</th>
+                                    <th>Item Quantity</th>
                                 </tr>
                             </thead>
                             <tbody>';
@@ -68,10 +55,9 @@ class Farmer extends DatabaseModel
             $output .= '<tr class="gradeX">
                     <td><input class="idSwitcher" type="radio" rel="' .
                      $items->id . '" /></td>
-                    <td>MPRDFarmer-' . $items->id . '</td>
+                    <td>MPRDItem-' . $items->id . '</td>
                     <td>' . $items->name . '</td>
-                    <td>' . $items->age . ' </td>
-                    <td class="center">' . $items->address . ' </td>
+                    <td class="center">' . $items->quantity . ' </td>
                 </tr>';
         } else {
             foreach ($items as $item) {
@@ -79,10 +65,9 @@ class Farmer extends DatabaseModel
                 <tr class="gradeX">
                     <td><input class="idSwitcher" rel="' .
                          $item->id . '" type="radio" name="selectedRecord" /></td>
-                    <td>MPRDFarmer-' . $item->id . '</td>
+                    <td>MPRDItem-' . $item->id . '</td>
                     <td>' . $item->name . '</td>
-                    <td>' . $item->age . ' </td>
-                    <td class="center">' . $item->address . ' </td>
+                    <td class="center">' . $item->quantity . ' </td>
                 </tr>';
             }
         }

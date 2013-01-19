@@ -36,9 +36,13 @@ class Template
      */
     public function __construct ()
     {
-        $this->setupPage();
-        $this->callTemplateParts($this->templateFiles);
-        $this->setupPageEnd();
+        if(preg_match("/ajax/i", $_SERVER['REQUEST_URI'])) {
+            Helper::render ();
+        } else {
+            $this->setupPage();
+            $this->callTemplateParts($this->templateFiles);
+            $this->setupPageEnd();
+        }
     }
 
     /**

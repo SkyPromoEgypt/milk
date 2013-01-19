@@ -3,23 +3,23 @@
 class Form
 {
 
-    private $_requiredFields;
+    protected $_requiredFields;
 
-    private $_object;
+    protected $_object;
     
-    private $_tableName;
+    protected $_tableName;
 
-    private $_requiredAttributes;
+    protected $_requiredAttributes;
 
-    private $_redirectPage;
+    protected $_redirectPage;
 
-    private $_itemObject;
+    protected $_itemObject;
 
-    private $onSuccess = 'Item successfully saved.';
+    protected $onSuccess = 'Item successfully saved.';
 
-    private $onFailure = 'Error Saving the item.';
+    protected $onFailure = 'Error Saving the item.';
 
-    private $onNotFound = 'Sorry, item doesn\'t exixts';
+    protected $onNotFound = 'Sorry, item doesn\'t exixts';
 
     public function __construct ($className, $tableName, Array $attributes, 
             Array $requiredFields, $redirectPage)

@@ -5,29 +5,14 @@ class Settings extends DatabaseModel
 
     public $id;
 
-    public $atitle;
+    public $safteyBox;
 
-    public $etitle;
-
-    public $facebookToken;
-
-    public $facebookUser;
-
-    public $twitter;
-
-    public $status;
-    
     public static $settings;
 
     protected $tableName = 'settings';
 
     protected $fields = array(
-            "atitle",
-            "etitle",
-            "facebookToken",
-            "facebookUser",
-            "twitter",
-            "status"
+            "safteyBox"
     );
     
     public static function getSettings()

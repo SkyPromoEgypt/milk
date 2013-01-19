@@ -48,4 +48,13 @@ class Helper
     {
         return $wrapper . $wrappedItem . $wrapper;
     }
+    
+    public static function activeItem($view) {
+        echo (self::getView() == $view) ? 'class="active"' : '';
+    }
+
+    public static function storeHasEnough()
+    {
+        
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-class Farmer extends DatabaseModel
+class Driver extends DatabaseModel
 {
 
     public $id;
@@ -13,11 +13,13 @@ class Farmer extends DatabaseModel
 
     public $phone;
 
+    public $licenseNumber;
+
     public $notes;
 
     public $status;
 
-    protected $tableName = "farmers";
+    protected $tableName = "drivers";
 
     protected $fields = array(
             'id',
@@ -25,6 +27,7 @@ class Farmer extends DatabaseModel
             'age',
             'address',
             'phone',
+            'licenseNumber',
             'notes',
             'status'
     );
@@ -42,7 +45,7 @@ class Farmer extends DatabaseModel
         
         $output = '<div class="mws-panel grid_8">
                     <div class="mws-panel-header">
-                        <span class="mws-i-24 i-table-1">List of all farmers in the database</span>
+                        <span class="mws-i-24 i-table-1">List of all drivers in the database</span>
                     </div>
                     <div class="mws-panel-body">
                         <div class="mws-panel-toolbar top clearfix">
@@ -56,10 +59,10 @@ class Farmer extends DatabaseModel
                             <thead>
                                 <tr>
                                     <td></td>
-                                    <th>Farmers Code</th>
-                                    <th>Farmers Name</th>
+                                    <th>Driver Code</th>
+                                    <th>Name</th>
                                     <th>Age</th>
-                                    <th>Address</th>
+                                    <th>License Number</th>
                                 </tr>
                             </thead>
                             <tbody>';
@@ -71,7 +74,7 @@ class Farmer extends DatabaseModel
                     <td>MPRDFarmer-' . $items->id . '</td>
                     <td>' . $items->name . '</td>
                     <td>' . $items->age . ' </td>
-                    <td class="center">' . $items->address . ' </td>
+                    <td>' . $items->licenseNumber . ' </td>
                 </tr>';
         } else {
             foreach ($items as $item) {
@@ -82,7 +85,7 @@ class Farmer extends DatabaseModel
                     <td>MPRDFarmer-' . $item->id . '</td>
                     <td>' . $item->name . '</td>
                     <td>' . $item->age . ' </td>
-                    <td class="center">' . $item->address . ' </td>
+                    <td>' . $items->licenseNumber . ' </td>
                 </tr>';
             }
         }

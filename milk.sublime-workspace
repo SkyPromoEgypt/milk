@@ -1,0 +1,452 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"_t",
+				"_tableName  (variable)"
+			],
+			[
+				"n",
+				"none"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"font-",
+				"font-style"
+			],
+			[
+				"consl",
+				"console	console.log()"
+			],
+			[
+				"script",
+				"script	<script>"
+			],
+			[
+				"tr",
+				"transform"
+			],
+			[
+				"back",
+				"background"
+			],
+			[
+				"bac",
+				"background"
+			],
+			[
+				"bore",
+				"border"
+			],
+			[
+				"img",
+				"img	img"
+			],
+			[
+				"text",
+				"text-decoration"
+			],
+			[
+				"backr",
+				"background"
+			],
+			[
+				"a",
+				"a	<a>"
+			],
+			[
+				"border-",
+				"border-bottom"
+			],
+			[
+				"pad",
+				"padding"
+			],
+			[
+				"ul",
+				"ul	<ul>"
+			],
+			[
+				"input",
+				"input	input - search"
+			],
+			[
+				"FETCH",
+				"FETCH_CLASS  (constant)"
+			],
+			[
+				"style",
+				"style	<style>"
+			],
+			[
+				"FETC",
+				"FETCH_CLASS  (constant)"
+			],
+			[
+				"paym",
+				"payment"
+			],
+			[
+				"paymen",
+				"paymentType"
+			],
+			[
+				"cons",
+				"console	console.log()"
+			],
+			[
+				"preg_",
+				"preg_match  (function)"
+			],
+			[
+				"lo",
+				"log(m)	elfinder.full.js"
+			],
+			[
+				"anima",
+				"animalfood"
+			],
+			[
+				"Animal",
+				"AnimalFood"
+			],
+			[
+				"dr",
+				"drivers"
+			],
+			[
+				"licen",
+				"licenseNumber"
+			],
+			[
+				"lice",
+				"licenseNumber"
+			],
+			[
+				"cla",
+				"className"
+			],
+			[
+				"ma",
+				"mainUrl"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/var/www/peak/_views/admin/categories.view.php",
+			"settings":
+			{
+				"buffer_size": 1981,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 96.0,
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"insall",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 467.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/var/www/peak/_models/form.class.php",
+		"/var/www/peak/_views/admin/categories.view.php",
+		"/var/www/peak/_models/category.class.php",
+		"/var/www/peak/_css/table.css",
+		"/var/www/peak/_models/admintemplate.class.php",
+		"/var/www/peak/_js/core.js",
+		"/var/www/peak/_css/fluid.css",
+		"/var/www/peak/_css/misc.css",
+		"/var/www/peak/_css/icons.css",
+		"/var/www/peak/_css/panels.css",
+		"/var/www/milk/css/icons/icons.css",
+		"/var/www/peak/_css/form.css",
+		"/var/www/peak/_css/report.css",
+		"/var/www/peak/_css/gallery.css",
+		"/var/www/peak/_models/template.class.php",
+		"/var/www/milk/models/driver.class.php",
+		"/home/fox/Desktop/webworker.js",
+		"/home/fox/Desktop/webworkers.html",
+		"/home/fox/Desktop/animation.html",
+		"/home/fox/Desktop/Best Cross-browser clear fix",
+		"/home/fox/Desktop/Paths",
+		"/home/fox/Desktop/display.html",
+		"/var/www/abc/pages/index.html",
+		"/var/www/abc/index.html",
+		"/home/fox/Desktop/list.html",
+		"/home/fox/Desktop/Form API Web2 Forms",
+		"/home/fox/Desktop/forms.html",
+		"/home/fox/Desktop/select",
+		"/var/www/milk/models/distributorform.class.php",
+		"/var/www/milk/models/distribution.class.php",
+		"/var/www/milk/views/web/trans-distributor.view.php",
+		"/var/www/milk/template/web/sidebar.tpl.php",
+		"/var/www/milk/models/form.class.php",
+		"/home/fox/Desktop/css.html",
+		"/var/www/milk/views/web/data-agents.view.php",
+		"/var/www/milk/views/web/data-farmers.view.php",
+		"/var/www/milk/css/core/core.css",
+		"/var/www/milk/js/demo.js",
+		"/var/www/milk/views/web/ajax-farmers.view.php",
+		"/var/www/milk/.htaccess",
+		"/home/fox/Desktop/application.js",
+		"/home/fox/Desktop/testjs.html",
+		"/var/www/milk/models/settings.class.php",
+		"/var/www/milk/models/helper.class.php",
+		"/var/www/milk/models/databasemodel.class.php",
+		"/var/www/milk/css/core/form.css",
+		"/var/www/js/javascript.js",
+		"/var/www/js/creation.js",
+		"/var/www/js/lib.js",
+		"/var/www/milk/config.php",
+		"/var/www/milk/models/template.class.php",
+		"/media/fox/BA58174658170135/My Work/Web Design/TourMagnet/_js/cities.js",
+		"/media/fox/BA58174658170135/My Work/Web Design/TourMagnet/ajax/ajaxcities.php",
+		"/var/www/milk/js/mws.js",
+		"/var/www/milk/models/farmer.class.php",
+		"/var/www/milk/models/animalfood.class.php",
+		"/var/www/milk/views/web/data-animalfood.view.php",
+		"/var/www/milk/views/web/data-drivers.view.php",
+		"/var/www/milk/models/car.class.php",
+		"/var/www/milk/views/web/data-cars.view.php",
+		"/var/www/milk/models/agent.class.php",
+		"/var/www/milk/views/web/data-carss.view.php",
+		"/var/www/milk/template/web/body.tpl.php",
+		"/var/www/milk/models/agnet.class.php",
+		"/var/www/milk/models/drievr.class.php",
+		"/home/fox/Desktop/lib.js"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"url(32",
+			"url(16",
+			"url(24",
+			"div.mws-panel-toolbar ul li a, div.mws-panel-toolbar ul li span",
+			"div.mws-panel",
+			"div.mws-panel-toolbar ul li a, div.mws-panel-toolbar ul li span",
+			";\n",
+			"div.dataTable_wrapper",
+			"filter",
+			"info",
+			"C5D52B",
+			"font",
+			"../../images/core/",
+			"_images",
+			"../_images",
+			"../../images",
+			"js",
+			"private",
+			"small",
+			"innerHTML",
+			"autoCompleteSource",
+			"4",
+			"Car",
+			"car",
+			"farmer",
+			"Farmer",
+			"farmer",
+			"Farmers",
+			"MPRD",
+			"Model",
+			"Agent",
+			"agent",
+			"Agent",
+			"agent",
+			"Farmer",
+			"farmer"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"url(/_images/icons/32",
+			"url(/_images/icons/16",
+			"url(/_images/icons/24",
+			"/_images/",
+			"/_images",
+			"_images",
+			"../_images"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/var/www/peak/_views/admin/categories.view.php",
+					"settings":
+					{
+						"buffer_size": 1981,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1678,
+								1678
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML5/Syntaxes/HTML 5.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1344.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 74.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"sid",
+				"template/web/sidebar.tpl.php"
+			],
+			[
+				"databa",
+				"models/databasemodel.class.php"
+			],
+			[
+				"far",
+				"views/web/data-farmers.view.php"
+			],
+			[
+				"demo",
+				"js/demo.js"
+			],
+			[
+				"mws",
+				"js/mws.js"
+			],
+			[
+				"farm",
+				"views/web/data-farmers.view.php"
+			],
+			[
+				"databas",
+				"models/databasemodel.class.php"
+			],
+			[
+				"side",
+				"template/web/sidebar.tpl.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 204.0,
+	"status_bar_visible": true
+}

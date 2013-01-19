@@ -37,7 +37,7 @@
 
 	<!-- Footer -->
 	<div id="mws-footer">
-            	Copyright &copy; <?php echo date('Y') ?>. All Rights Reserved. Developed and Powered By 
+            	Copyright &copy; <?php echo date('Y') ?>. All Rights Reserved. Developed and Powered By Istabraq for Solutions Development
             </div>
 	<!-- End Footer -->
 

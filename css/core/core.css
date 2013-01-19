@@ -542,6 +542,10 @@ div#mws-navigation ul li ul li:hover
 	background:url(../../images/core/mws-sub-nav-bg.png);
 }
 
+div#mws-navigation ul li ul li a.active {
+	color: #BFE015 !important;
+}
+
 /* Container */
 
 div#mws-container
@@ -555,6 +559,10 @@ div#mws-container .container
 {
 	float:left;
 	margin:0 4%;
+}
+
+a#editLink, a#deleteLink {
+	display: none;
 }
 
 
