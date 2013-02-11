@@ -1,19 +1,12 @@
 <?php
-$food = AnimalFood::getAll('animalfood');
 $item = new DistributorForm("Distribution", "distribution", 
         array(
                 "theid",
                 "quantity",
-                "paymentType",
-                "payment",
-                "notes",
                 "thetime"
         ), 
         array(
                 "quantity" => "The milk quantity",
-                "paymentType" => "The payment type",
-                "payment" => "The payment",
-                "notes" => "The farmer's notes",
                 "thetime" => "The delivery time"
         ), "/" . Helper::getView());
 
@@ -22,8 +15,7 @@ $object = $item->getElement();
 $item->process();
 Messenger::appMessenger();
 ?>
-<h1>The Distribution Center</h1>
-<p>Manage Milk quantities in the distribution center.</p>
+<h1>مركز التجميع</h1>
 <?php if($task && $task != "delete"): ?>
 <div class="mws-panel grid_8">
 	<div class="mws-panel-header">
@@ -93,4 +85,4 @@ Messenger::appMessenger();
 	</div>
 </div>
 <?php endif; ?>
-<?php if(!$task) echo Distribution::renderForControl("SELECT * FROM distribution", "Distribution"); ?>
+<?php if(!$task) echo Distribution::renderForControl("SELECT * FROM farmers", "Farmer"); ?>

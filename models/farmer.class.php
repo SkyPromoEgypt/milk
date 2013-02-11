@@ -7,7 +7,7 @@ class Farmer extends DatabaseModel
 
     public $name;
 
-    public $phone;
+    public $specialprice;
 
     public $notes;
 
@@ -18,7 +18,7 @@ class Farmer extends DatabaseModel
     protected $fields = array(
             'id',
             'name',
-            'phone',
+            'specialprice',
             'notes',
             'status'
     );

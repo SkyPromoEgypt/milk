@@ -153,6 +153,10 @@ class Template
 				<script type="text/javascript" src="js/mws.js"></script>
 				<script type="text/javascript" src="js/demo.js"></script>
 				<script type="text/javascript" src="js/themer.js"></script>
+                
+                <script type="text/javascript" src="js/highcharts.js" ></script>
+                <script type="text/javascript" src="js/themes/gray.js"></script>
+                <script type="text/javascript" src="js/chart.js"></script>
 				
 				<script type="text/javascript" src="js/demo.dashboard.js"></script>';
     }

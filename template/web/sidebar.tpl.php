@@ -20,9 +20,10 @@
 			<li><a href="" class="mws-i-24 i-list">المعاملات اليومية</a>
 				<ul>
 					<li><a <?php Helper::activeItem("trans-distributor"); ?> href="/trans-distributor">مركز التجميع</a></li>
-					<li><a <?php Helper::activeItem("trans-food"); ?> href="/trans-food">مركز التبريد</a></li>
-					<li><a <?php Helper::activeItem("trans-freezingcenter"); ?> href="/trans-freezingcenter">توريد لعميل</a></li>
-					<li><a <?php Helper::activeItem("trans-agents"); ?> href="/trans-agents">الوارد و الصادر</a></li>
+					<li><a <?php Helper::activeItem("trans-food"); ?> href="/trans-freezing">مركز التبريد</a></li>
+					<li><a <?php Helper::activeItem("trans-freezingcenter"); ?> href="/trans-agnet">توريد لعميل</a></li>
+					<li><a <?php Helper::activeItem("trans-agents"); ?> href="/trans-food">توريد العلف</a></li>
+					<li><a <?php Helper::activeItem("trans-agents"); ?> href="/trans-day">الوارد و الصادر</a></li>
 				</ul>
 			</li>
 			<li><a href="" class="mws-i-24 i-list">التقارير</a>

@@ -256,4 +256,44 @@ $(document).ready(function() {
 			$('#deleteLink').attr('href', url + '/delete/' + id);
 		});
 	});
+	
+	/* Easy Navigation with arrow keys */
+	
+	// Down Key
+	$(document).keydown(function(e){
+	    if (e.keyCode == 40) { 
+	        var index = $("input:focus").parent().index();
+	        var mainTr = $("input:focus").parent().parent();
+	        mainTr.next().children("td:eq(" + index + ")").children("input").focus();
+	        return false;
+	    }
+	});
+	
+	// Up Key
+	$(document).keydown(function(e){
+	    if (e.keyCode == 38) { 
+	    	var index = $("input:focus").parent().index();
+	        var mainTr = $("input:focus").parent().parent();
+	        mainTr.prev().children("td:eq(" + index + ")").children("input").focus();
+	        return false;
+	    }
+	});
+	
+	// Right Key
+	$(document).keydown(function(e){
+	    if (e.keyCode == 39) { 
+	       var mainTr = $("input:focus").parent();
+	       mainTr.next().children("input").focus();
+	       return false;
+	    }
+	});
+	
+	// Left Key
+	$(document).keydown(function(e){
+	    if (e.keyCode == 37) { 
+	       var mainTr = $("input:focus").parent();
+	       mainTr.prev().children("input").focus();
+	       return false;
+	    }
+	});
 });

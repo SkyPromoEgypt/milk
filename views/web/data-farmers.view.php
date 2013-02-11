@@ -2,14 +2,12 @@
 $item = new Form("Farmer", "farmers", 
         array(
                 "name",
-                "phone",
+                "specialprice",
                 "notes",
                 "status"
         ), 
         array(
                 "name" => "The farmer's name",
-                "phone" => "The farmer's phone",
-                "notes" => "The farmer's notes"
         ), "/" . Helper::getView());
 
 $task = $item->getTask();
@@ -34,10 +32,10 @@ Messenger::appMessenger();
 					</div>
 				</div>
 				<div class="mws-form-row">
-					<label>رقم هاتف المزارع</label>
-					<div class="mws-form-item large">
-						<input type="text" name="phone" class="mws-textinput"
-							value="<?php Form::_e('phone', $object) ?>">
+					<label>سعر خاص</label>
+					<div class="mws-form-item small">
+						<input type="text" name="specialprice" class="mws-textinput"
+							value="<?php Form::_e('specialprice', $object) ?>">
 					</div>
 				</div>
 				<div class="mws-form-row">
