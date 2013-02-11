@@ -1,15 +1,17 @@
 <?php
-$item = new Form("Farmer", "farmers", 
+$item = new Form("Supplier", "suppliers", 
         array(
                 "name",
+                "address",
                 "phone",
                 "notes",
                 "status"
         ), 
         array(
-                "name" => "The farmer's name",
-                "phone" => "The farmer's phone",
-                "notes" => "The farmer's notes"
+               	  "name" => "The supplier's name",
+                "address" => "The supplier's address",
+                "phone" => "The supplier's phone",
+                "notes" => "The supplier's notes"
         ), "/" . Helper::getView());
 
 $task = $item->getTask();
@@ -17,24 +19,31 @@ $object = $item->getElement();
 $item->process();
 Messenger::appMessenger();
 ?>
-<h1>المزارعين</h1>
+<h1>الموردين</h1>
 <?php if($task && $task != "delete"): ?>
 <div class="mws-panel grid_8">
 	<div class="mws-panel-header">
-		<span class="mws-i-24 i-list">حقول بيانات المزارعين</span>
+		<span class="mws-i-24 i-list">حقول بينات الموردين</span>
 	</div>
 	<div class="mws-panel-body">
 		<form class="mws-form" method="post">
 			<div class="mws-form-inline">
 				<div class="mws-form-row">
-					<label>اسم المزارع</label>
+					<label>اسم المورد</label>
 					<div class="mws-form-item large">
 						<input type="text" name="name" class="mws-textinput"
 							value="<?php Form::_e('name', $object) ?>">
 					</div>
 				</div>
 				<div class="mws-form-row">
-					<label>رقم هاتف المزارع</label>
+					<label>عنوان المورد</label>
+					<div class="mws-form-item large">
+						<input type="text" name="address" class="mws-textinput"
+							value="<?php Form::_e('address', $object) ?>">
+					</div>
+				</div>
+				<div class="mws-form-row">
+					<label>رقم هاتف المورد</label>
 					<div class="mws-form-item large">
 						<input type="text" name="phone" class="mws-textinput"
 							value="<?php Form::_e('phone', $object) ?>">
@@ -47,15 +56,13 @@ Messenger::appMessenger();
 					</div>
 				</div>
 				<div class="mws-form-row">
-					<label>الملف مفعل ؟</label>
+					<label>المورد يتعامل مع المركز</label>
 					<div class="mws-form-item clearfix">
 						<ul class="mws-form-list inline">
 							<li><input type="radio" name="status" value="1"
-								<?php if($object->status == 1) echo 'checked' ?>> <label>
-									المزارع يتعامل مع المركز</label></li>
+								<?php if($object->status == 1) echo 'checked' ?>> <label>نعم</label></li>
 							<li><input type="radio" name="status" value="0"
-								<?php if($object->status == 0) echo 'checked' ?>> <label>
-									المزارع لا يتعامل مع المركز حاليا</label></li>
+								<?php if($object->status == 0) echo 'checked' ?>> <label>لا</label></li>
 						</ul>
 					</div>
 				</div>
@@ -68,4 +75,4 @@ Messenger::appMessenger();
 	</div>
 </div>
 <?php endif; ?>
-<?php if(!$task) echo Farmer::renderForControl("SELECT * FROM farmers", "Farmer"); ?>
+<?php if(!$task) echo Supplier::renderForControl("SELECT * FROM suppliers", "Supplier"); ?>

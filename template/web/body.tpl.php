@@ -37,7 +37,7 @@
 
 	<!-- Footer -->
 	<div id="mws-footer">
-            	Copyright &copy; <?php echo date('Y') ?>. All Rights Reserved. Developed and Powered By Istabraq for Solutions Development
+            	جميع حقوق البرنامج محفوظة لشركة سكاي برومو مصر &copy; <?php echo date("Y") ?> ، تصميم و تطوير شركة سكاي برومو مصر 
             </div>
 	<!-- End Footer -->
 

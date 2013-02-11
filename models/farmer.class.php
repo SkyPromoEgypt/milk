@@ -7,10 +7,6 @@ class Farmer extends DatabaseModel
 
     public $name;
 
-    public $age;
-
-    public $address;
-
     public $phone;
 
     public $notes;
@@ -22,8 +18,6 @@ class Farmer extends DatabaseModel
     protected $fields = array(
             'id',
             'name',
-            'age',
-            'address',
             'phone',
             'notes',
             'status'
@@ -42,24 +36,22 @@ class Farmer extends DatabaseModel
         
         $output = '<div class="mws-panel grid_8">
                     <div class="mws-panel-header">
-                        <span class="mws-i-24 i-table-1">List of all farmers in the database</span>
+                        <span class="mws-i-24 i-table-1">قائمة بكل المزارعين في البرنامج</span>
                     </div>
                     <div class="mws-panel-body">
                         <div class="mws-panel-toolbar top clearfix">
                             <ul>
-                                <li><a class="mws-ic-16 ic-add" href="' . $mainUrl . '/add">Add</a></li>
-                                <li><a class="mws-ic-16 ic-edit" id="editLink" href="' . $mainUrl . '/edit">Edit</a></li>
-                                <li><a class="mws-ic-16 ic-cross" id="deleteLink" href="' . $mainUrl . '/delete" onclick="' . $js . '">Delete</a></li>
+                                <li><a class="mws-ic-16 ic-add" href="' . $mainUrl . '/add">اضافة</a></li>
+                                <li><a class="mws-ic-16 ic-edit" id="editLink" href="' . $mainUrl . '/edit">تعديل</a></li>
+                                <li><a class="mws-ic-16 ic-cross" id="deleteLink" href="' . $mainUrl . '/delete" onclick="' . $js . '">حذف</a></li>
                             </ul>
                         </div>
                         <table class="mws-datatable-fn mws-table">
                             <thead>
                                 <tr>
                                     <td></td>
-                                    <th>Farmers Code</th>
-                                    <th>Farmers Name</th>
-                                    <th>Age</th>
-                                    <th>Address</th>
+                                    <th>كود المزارع</th>
+                                    <th>اسم المزارع</th>
                                 </tr>
                             </thead>
                             <tbody>';
@@ -71,7 +63,6 @@ class Farmer extends DatabaseModel
                     <td>MPRDFarmer-' . $items->id . '</td>
                     <td>' . $items->name . '</td>
                     <td>' . $items->age . ' </td>
-                    <td class="center">' . $items->address . ' </td>
                 </tr>';
         } else {
             foreach ($items as $item) {
@@ -81,8 +72,6 @@ class Farmer extends DatabaseModel
                          $item->id . '" type="radio" name="selectedRecord" /></td>
                     <td>MPRDFarmer-' . $item->id . '</td>
                     <td>' . $item->name . '</td>
-                    <td>' . $item->age . ' </td>
-                    <td class="center">' . $item->address . ' </td>
                 </tr>';
             }
         }

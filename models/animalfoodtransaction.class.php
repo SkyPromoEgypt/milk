@@ -1,21 +1,27 @@
 <?php
 
-class AnimalFood extends DatabaseModel
+class AnimalFoodTransaction extends DatabaseModel
 {
 
     public $id;
     
+    public $cat_id;
+
     public $name;
     
+    public $created;
+
     public $quantity;
 
-    protected $tableName = "animalfood";
+    protected $tableName = "animalfoodtransactions";
     
-    public static $table = 'animalfood';
+    public static $table = 'animalfoodtransactions';
 
     protected $fields = array(
             'id',
+            'cat_id',
             'name',
+            'created',
             'quantity'
     );
 
@@ -32,7 +38,7 @@ class AnimalFood extends DatabaseModel
         
         $output = '<div class="mws-panel grid_8">
                     <div class="mws-panel-header">
-                        <span class="mws-i-24 i-table-1">قائمة بانواع العلف في قواعد البيانات</span>
+                        <span class="mws-i-24 i-table-1">List of all animal food in the database</span>
                     </div>
                     <div class="mws-panel-body">
                         <div class="mws-panel-toolbar top clearfix">
@@ -46,9 +52,10 @@ class AnimalFood extends DatabaseModel
                             <thead>
                                 <tr>
                                     <td></td>
-                                    <th>سجل</th>
-                                    <th>نوع العلف</th>    
-                                    <th>الكمية بالمخزن</th>
+                                    <th>Record</th>
+                                    <th>Supplier\'s Name</th>
+                                    <th>Date / Time</th>    
+                                    <th>quantity</th>
                                 </tr>
                             </thead>
                             <tbody>';
@@ -59,6 +66,7 @@ class AnimalFood extends DatabaseModel
                      $items->id . '" /></td>
                     <td>MPRDItem-' . $items->id . '</td>
                     <td>' . $items->name . '</td>
+                    <td>' . $items->created . '</td>
                     <td class="center">' . $items->quantity . ' </td>
                 </tr>';
         } else {
@@ -69,6 +77,7 @@ class AnimalFood extends DatabaseModel
                          $item->id . '" type="radio" name="selectedRecord" /></td>
                     <td>MPRDItem-' . $item->id . '</td>
                     <td>' . $item->name . '</td>
+                    <td>' . $item->created . '</td>
                     <td class="center">' . $item->quantity . ' </td>
                 </tr>';
             }

@@ -5,42 +5,37 @@
 <!-- Sidebar Wrapper -->
 <div id="mws-sidebar">
 
-	<!-- Search Box -->
-	<div id="mws-searchbox" class="mws-inset">
-		<form action="" method="post">
-			<input type="text" class="mws-search-input" /> <input type="submit"
-				class="mws-search-submit" />
-		</form>
-	</div>
-
 	<!-- Main Navigation -->
 	<div id="mws-navigation">
 		<ul>
-			<li><a href="" class="mws-i-24 i-list">Data Center</a>
+			<li><a href="" class="mws-i-24 i-list">قواعد البيانات</a>
 				<ul>
-					<li><a <?php Helper::activeItem("data-farmers"); ?> href="/data-farmers">Farmers</a></li>
-					<li><a <?php Helper::activeItem("data-agents"); ?> href="/data-agents">Agnets / Factories</a></li>
-					<li><a <?php Helper::activeItem("data-cars"); ?> href="/data-cars">Delivery Cars</a></li>
-					<li><a <?php Helper::activeItem("data-drivers"); ?> href="/data-drivers">Drivers</a></li>
-					<li><a <?php Helper::activeItem("data-animalfood"); ?> href="/data-animalfood">Animal Food</a></li>
-				</ul></li>
-			<li><a href="" class="mws-i-24 i-list">Transactions</a>
+					<li><a <?php Helper::activeItem("data-farmers"); ?> href="/data-farmers">المزارعين</a></li>
+					<li><a <?php Helper::activeItem("data-agents"); ?> href="/data-agents">العملاء</a></li>
+					<li><a <?php Helper::activeItem("data-suppliers"); ?> href="/data-suppliers">الموردين</a></li>
+					<li><a <?php Helper::activeItem("data-animalfood"); ?> href="/data-animalfood">انواع العلف</a></li>
+					<li><a <?php Helper::activeItem("data-milk"); ?> href="/data-milk">انواع اللبن</a></li>
+				</ul>
+			</li>
+			<li><a href="" class="mws-i-24 i-list">المعاملات اليومية</a>
 				<ul>
-					<li><a <?php Helper::activeItem("trans-distributor"); ?> href="/trans-distributor">The Distributor</a></li>
-					<li><a <?php Helper::activeItem("trans-freezingcenter"); ?> href="/trans-freezingcenter">Freezing Center</a></li>
-					<li><a <?php Helper::activeItem("trans-agents"); ?> href="/trans-agents">Agents / Factories</a></li>
-					<li><a <?php Helper::activeItem("trans-saftybox"); ?> href="/trans-saftybox">Daily Transaction</a></li>
-				</ul></li>
-			<li><a href="#" class="mws-i-24 i-list">Reporting</a>
+					<li><a <?php Helper::activeItem("trans-distributor"); ?> href="/trans-distributor">مركز التجميع</a></li>
+					<li><a <?php Helper::activeItem("trans-food"); ?> href="/trans-food">مركز التبريد</a></li>
+					<li><a <?php Helper::activeItem("trans-freezingcenter"); ?> href="/trans-freezingcenter">توريد لعميل</a></li>
+					<li><a <?php Helper::activeItem("trans-agents"); ?> href="/trans-agents">الوارد و الصادر</a></li>
+				</ul>
+			</li>
+			<li><a href="" class="mws-i-24 i-list">التقارير</a>
 				<ul>
-					<li><a href="/reporting-farmers">Farmers</a></li>
-					<li><a href="/reporting-dcenter">Distribution Center</a></li>
-					<li><a href="/reporting-fcenter">Freezing Center</a></li>
-					<li><a href="/reporting-agents">Agnets / Factories</a></li>
-					<li><a href="/reporting-cars">Delivery Cars</a></li>
-					<li><a href="/reporting-drivers">Drivers</a></li>
-				</ul></li>
-			<li><a href="/settings" class="mws-i-24 i-list">General Setting</a></li>
+					<li><a <?php Helper::activeItem("reporting-farmers"); ?>  href="/reporting-farmers">كميات اللبن</a></li>
+					<li><a <?php Helper::activeItem("reporting-dcenter"); ?>  href="/reporting-dcenter">حسابات دائن و مدين</a></li>
+					<li><a <?php Helper::activeItem("reporting-fcenter"); ?>  href="/reporting-fcenter">المزارعين</a></li>
+					<li><a <?php Helper::activeItem("reporting-agents"); ?>  href="/reporting-agents">العملاء</a></li>
+					<li><a <?php Helper::activeItem("reporting-cars"); ?>  href="/reporting-cars">الموردين</a></li>
+					<li><a <?php Helper::activeItem("reporting-drivers"); ?>  href="/reporting-drivers">التقرير المجمع</a></li>
+				</ul>
+			</li>
+			<li><a <?php Helper::activeItem("trans-distributor"); ?>  href="/settings" class="mws-i-24 i-list">الإعدادات العامة</a></li>
 		</ul>
 	</div>
 	<!-- End Navigation -->

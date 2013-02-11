@@ -39,23 +39,23 @@ class Agent extends DatabaseModel
         
         $output = '<div class="mws-panel grid_8">
                     <div class="mws-panel-header">
-                        <span class="mws-i-24 i-table-1">List of all items in the database</span>
+                        <span class="mws-i-24 i-table-1">قائمة بكل العملاء في قاعدة البيانات</span>
                     </div>
                     <div class="mws-panel-body">
                         <div class="mws-panel-toolbar top clearfix">
                             <ul>
-                                <li><a class="mws-ic-16 ic-add" href="' . $mainUrl . '/add">Add</a></li>
-                                <li><a class="mws-ic-16 ic-edit" id="editLink" href="' . $mainUrl . '/edit">Edit</a></li>
-                                <li><a class="mws-ic-16 ic-cross" id="deleteLink" href="' . $mainUrl . '/delete" onclick="' . $js . '">Delete</a></li>
+                                <li><a class="mws-ic-16 ic-add" href="' . $mainUrl . '/add">اضافة</a></li>
+                                <li><a class="mws-ic-16 ic-edit" id="editLink" href="' . $mainUrl . '/edit">تعديل</a></li>
+                                <li><a class="mws-ic-16 ic-cross" id="deleteLink" href="' . $mainUrl . '/delete" onclick="' . $js . '">حذف</a></li>
                             </ul>
                         </div>
                         <table class="mws-datatable-fn mws-table">
                             <thead>
                                 <tr>
                                     <td></td>
-                                    <th>Agent Code</th>
-                                    <th>Agent Name</th>
-                                    <th>Address</th>
+                                    <th>كود العميل</th>
+                                    <th>اسم العميل</th>
+                                    <th>عنوان العميل</th>
                                 </tr>
                             </thead>
                             <tbody>';

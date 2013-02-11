@@ -17,10 +17,9 @@
 				<img src="example/profile.jpg" alt="User Photo" />
 			</div>
 			<div id="mws-user-functions">
-				<div id="mws-username">Hello, <?php echo User::theUser()->username; ?></div>
+				<div id="mws-username">مرحبا, <?php echo User::theUser()->username; ?></div>
 				<ul>
-					<li><a href="resetpassword">Change Password</a></li>
-					<li><a href="/logout">Logout</a></li>
+					<li><a href="/logout">تسجيل خروج</a></li>
 				</ul>
 			</div>
 		</div>
