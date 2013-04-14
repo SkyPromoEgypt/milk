@@ -1,15 +1,15 @@
 <?php
-$item = new AnimalFoodForm("AnimalFoodTransaction", "animalfoodtransactions", 
+$item = new AgentTransactionForm("AgentTransaction", "agenttransactions", 
         array(
-                "supplier_id",
-                "cat_id",
+                "agent_id",
                 "quantity",
-                'lost'
+                "lost",
+                "price"
         ), array(
-                "supplier_id" => "The Supplier's name",
-                "cat_id" => "The Food type",
+                "agent_id" => "The Agent's name",
+                "lost" => "The lost if exists",
                 "quantity" => "The Quantity",
-                'lost' => "The lost quantity if exists"
+                "price" => "The price per kilo"
         ), "/" . Helper::getView());
 
 $task = $item->getTask();
@@ -17,39 +17,24 @@ $object = $item->getElement();
 $item->process();
 Messenger::appMessenger();
 ?>
-<h1>توريد العلف من الموردين</h1>
+<h1>التوريد للعملاء</h1>
 <?php if($task && $task != "delete"): ?>
 <div class="mws-panel grid_8">
-	<div class="mws-panel-header">
-		<span class="mws-i-24 i-list">Animal Food Form</span>
+    <div class="mws-panel-header">
+		<span class="mws-i-24 i-list">حقول بيانات التوريدات</span>
 	</div>
 	<div class="mws-panel-body">
 		<form class="mws-form" method="post">
 			<div class="mws-form-inline">
 				<div class="mws-form-row">
-					<label>المورد</label>
+					<label>العميل</label>
 					<div class="mws-form-item large">
-						<select name="supplier_id">
+						<select name="agent_id">
 						<?php 
-						    $types = Supplier::getAll("suppliers");
+						    $types = Agent::getAll("agents");
 						    foreach ($types as $type) {
 						        echo '<option value="' . $type->id . '"';
-						        if($object->supplier_id == $type->id) echo ' selected';
-						        echo '>' . $type->name . '</option>';
-						    }
-						?>
-						</select>
-					</div>
-				</div>
-				<div class="mws-form-row">
-					<label>نوع العلف</label>
-					<div class="mws-form-item large">
-						<select name="cat_id">
-						<?php 
-						    $types = AnimalFood::getAll("animalfood");
-						    foreach ($types as $type) {
-						        echo '<option value="' . $type->id . '"';
-						        if($object->cat_id == $type->id) echo ' selected';
+						        if($object->agent_id == $type->id) echo ' selected';
 						        echo '>' . $type->name . '</option>';
 						    }
 						?>
@@ -64,10 +49,17 @@ Messenger::appMessenger();
 					</div>
 				</div>
 				<div class="mws-form-row">
-					<label>الكمية المستلمة</label>
+					<label>الكمية التي وصلت</label>
 					<div class="mws-form-item large small">
 						<input type="text" name="lost" class="mws-textinput"
 							value="<?php Form::_e('lost', $object) ?>">
+					</div>
+				</div>
+				<div class="mws-form-row">
+					<label>سعر الكيلو</label>
+					<div class="mws-form-item large small">
+						<input type="text" name="price" class="mws-textinput"
+							value="<?php Form::_e('price', $object) ?>">
 					</div>
 				</div>
 			</div>
@@ -79,4 +71,4 @@ Messenger::appMessenger();
 	</div>
 </div>
 <?php endif; ?>
-<?php if(!$task) echo AnimalFoodTransaction::renderForControl("SELECT * FROM " . AnimalFoodTransaction::$table, "AnimalFoodTransaction"); ?>
+<?php if(!$task) echo AgentTransaction::renderForControl("SELECT * FROM agenttransactions", "AgentTransaction"); ?>

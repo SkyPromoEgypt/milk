@@ -72,7 +72,7 @@ div#mws-logo-container
 {
 	width:180px;
 	height:58px;
-	float:left;
+	float:right;
 	padding:0 10px;
 }
 
@@ -95,9 +95,8 @@ div#mws-logo-container #mws-logo-wrap img
 
 div#mws-user-tools
 {
-	float:right;
+	float:left;
 	padding:9px 0;
-	margin-right:10px;
 }
 
 div#mws-user-tools .mws-dropdown-menu, 

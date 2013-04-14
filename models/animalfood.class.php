@@ -8,6 +8,10 @@ class AnimalFood extends DatabaseModel
     public $name;
     
     public $quantity;
+    
+    public $sellprice;
+    
+    public $buyprice;
 
     protected $tableName = "animalfood";
     
@@ -16,8 +20,17 @@ class AnimalFood extends DatabaseModel
     protected $fields = array(
             'id',
             'name',
-            'quantity'
+            'quantity',
+            'sellprice',
+            'buyprice'
     );
+    
+    public static function getAllQuantities()
+    {
+        $sql = "SELECT SUM(quantity) as q FROM animalfood";
+        $result = self::read($sql, PDO::FETCH_CLASS, __CLASS__);
+        return $result ? $result->q : 0;
+    }
 
     public static function renderForControl ($sql, $className)
     {
@@ -49,6 +62,8 @@ class AnimalFood extends DatabaseModel
                                     <th>سجل</th>
                                     <th>نوع العلف</th>    
                                     <th>الكمية بالمخزن</th>
+                                    <th>سعر الشراء</th>
+                                    <th>سعر البيع</th>
                                 </tr>
                             </thead>
                             <tbody>';
@@ -60,6 +75,8 @@ class AnimalFood extends DatabaseModel
                     <td>MPRDItem-' . $items->id . '</td>
                     <td>' . $items->name . '</td>
                     <td class="center">' . $items->quantity . ' </td>
+                    <td class="center">' . $items->sellprice . ' </td>
+                    <td class="center">' . $items->buyprice . ' </td>
                 </tr>';
         } else {
             foreach ($items as $item) {
@@ -70,6 +87,8 @@ class AnimalFood extends DatabaseModel
                     <td>MPRDItem-' . $item->id . '</td>
                     <td>' . $item->name . '</td>
                     <td class="center">' . $item->quantity . ' </td>
+                    <td class="center">' . $item->sellprice . ' </td>
+                    <td class="center">' . $item->buyprice . ' </td>
                 </tr>';
             }
         }

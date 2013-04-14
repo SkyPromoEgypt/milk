@@ -1,88 +1,131 @@
 <?php
-$item = new DistributorForm("Distribution", "distribution", 
-        array(
-                "theid",
-                "quantity",
-                "thetime"
-        ), 
-        array(
-                "quantity" => "The milk quantity",
-                "thetime" => "The delivery time"
-        ), "/" . Helper::getView());
+if (isset($_POST['save'])) {
+    
+    global $dbh;
+    
+    $today = date("Y-m-d");
+    
+    $stmt = $dbh->prepare(
+            "INSERT INTO distribution SET farmer_id = :farmer, quantity = :quantity, price = :price, created = :today, thetime = :time");
+    
+    for ($i = 0; $i < count($_POST['farmer']); $i ++) {
+        
+        // Get The Store
+        $store = Store::getStore();
+        
+        // Get The Farmer
+        $farmer = Farmer::read(
+                "SELECT * FROM farmers WHERE id = " . $_POST['farmer'][$i], 
+                PDO::FETCH_CLASS, "Farmer");
+        
+        $raise = 0;
+        
+        $milk = 0;
+        
+        // Check the morning entry
+        if ($_POST['mquantity'][$i] &&
+                 ! Distribution::hasTodayEntry($_POST['farmer'][$i])) {
+            $farmerArray = array();
+            $farmerArray['farmer'] = $_POST['farmer'][$i];
+            $farmerArray['time'] = 1;
+            $farmerArray['quantity'] = $_POST['mquantity'][$i];
+            $farmerArray['today'] = $today;
+            
+            // Determine Price
+            $price = 0;
+            if ($_POST['mprice'][$i]) {
+                $price = $_POST['mprice'][$i];
+            } elseif ($farmer->specialprice != 0) {
+                $price = $farmer->specialprice;
+            } else {
+                $price = Milk::getBuyPrice();
+            }
+            $farmerArray['price'] = $price;
+            
+            if ($stmt->execute($farmerArray)) {
+                $farmer->tohim += $farmerArray['quantity'] * $price;
+                $raise += $farmerArray['quantity'] * $price;
+                $milk += $farmerArray['quantity'];
+                $farmer->save();
+            }
+        }
+        
+        // Check the night entry
+        if ($_POST['equantity'][$i] &&
+                 ! Distribution::hasTodayEntry($_POST['farmer'][$i], false)) {
+            $farmerArray = array();
+            $farmerArray['farmer'] = $_POST['farmer'][$i];
+            $farmerArray['time'] = 2;
+            $farmerArray['quantity'] = $_POST['equantity'][$i];
+            $farmerArray['today'] = $today;
+            
+            // Determine Price
+            $price = 0;
+            if ($_POST['eprice'][$i]) {
+                $price = $_POST['eprice'][$i];
+            } elseif ($farmer->specialprice != 0) {
+                $price = $farmer->specialprice;
+            } else {
+                $price = Milk::getBuyPrice();
+            }
+            $farmerArray['price'] = $price;
+            
+            if ($stmt->execute($farmerArray)) {
+                $farmer->tohim += $farmerArray['quantity'] * $price;
+                $raise += $farmerArray['quantity'] * $price;
+                $milk += $farmerArray['quantity'];
+                $farmer->save();
+            }
+        }
+        
+        if ($raise != 0) {
+            $store->milk += $milk;
+            $store->save();
+        }
+    }
+}
 
-$task = $item->getTask();
-$object = $item->getElement();
-$item->process();
-Messenger::appMessenger();
+$morning = Distribution::getMilkQuantities();
+$night = Distribution::getMilkQuantities(false);
 ?>
-<h1>مركز التجميع</h1>
-<?php if($task && $task != "delete"): ?>
-<div class="mws-panel grid_8">
-	<div class="mws-panel-header">
-		<span class="mws-i-24 i-list">Farmers Form</span>
-	</div>
-	<div class="mws-panel-body">
-		<form class="mws-form" method="post">
-			<div class="mws-form-inline">
-				<div class="mws-form-row">
-					<label>Farmer's Name</label>
-					<div class="mws-form-item large">
-						<input type="text" name="name" class="mws-textinput nameautocomplete"
-							value="<?php Form::_e('name', $object) ?>">
-					</div>
-				</div>
-				<input type="hidden" id="theid" name="theid">
-				<div class="mws-form-row">
-					<label>Milk quantity</label>
-					<div class="mws-form-item small">
-						<input type="text" name="quantity" class="mws-textinput"
-							value="<?php Form::_e('quantity', $object) ?>">
-					</div>
-				</div>
-				<div class="mws-form-row">
-					<label>Payment Type</label>
-					<div class="mws-form-item small">
-						<select name="paymentType">
-							<option value="1000000">Money</option>
-							<?php
-								foreach ($food as $object) {
-									echo '<option value="' . $object->id . '">' . $object->name . '</option>';
-								}
-							?>
-						</select>
-					</div>
-				</div>
-				<div class="mws-form-row">
-					<label>Payment</label>
-					<div class="mws-form-item small">
-						<input type="text" name="payment" class="mws-textinput"
-							value="<?php Form::_e('payment', $object) ?>">
-					</div>
-				</div>
-				<div class="mws-form-row">
-					<label>Notes</label>
-					<div class="mws-form-item large">
-						<textarea cols="100%" rows="100%" name="notes"><?php Form::_e('notes', $object) ?></textarea>
-					</div>
-				</div>
-				<div class="mws-form-row">
-					<label>Delivery Time</label>
-					<div class="mws-form-item clearfix">
-						<ul class="mws-form-list inline">
-							<li><input type="radio" name="thetime" value="1"
-								<?php if($object->status == 1) echo 'checked' ?>> <label>Day time.</label></li>
-							<li><input type="radio" name="thetime" value="2"
-								<?php if($object->status == 2) echo 'checked' ?>> <label>Night time.</label></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="mws-button-row">
-				<input type="submit" name="submit" class="mws-button green"
-					value="Save">
-			</div>
-		</form>
-	</div>
+<div class="mws-report-container clearfix">
+	<a class="mws-report" href="#"> <span
+		class="mws-report-icon mws-ic ic-building"></span> <span
+		class="mws-report-content"> <span class="mws-report-title">تاريخ اليوم</span>
+			<span class="mws-report-value"
+			style="margin-top: 7px;"><?php echo date("Y/m/d"); ?></span>
+	</span>
+	</a> <a class="mws-report" href="#"> <span
+		class="mws-report-icon mws-ic ic-building"></span> <span
+		class="mws-report-content"> <span class="mws-report-title">الاجمالي
+				صباحا</span> <span class="mws-report-value"
+			style="font-size: 1.8em; margin-top: 7px;"><?php echo !$morning ? 0 : round($morning, 2); ?> ك</span>
+	</span>
+	</a> <a class="mws-report" href="#"> <span
+		class="mws-report-icon mws-ic ic-building"></span> <span
+		class="mws-report-content"> <span class="mws-report-title">الاجمالي
+				مساءا</span> <span class="mws-report-value"
+			style="font-size: 1.8em; margin-top: 7px;"><?php echo !$night ? 0 : round($night,2); ?> ك</span>
+	</span>
+	</a> <a class="mws-report" href="#"> <span
+		class="mws-report-icon mws-ic ic-building"></span> <span
+		class="mws-report-content"> <span class="mws-report-title">الاجمالي
+				الخاص باليوم</span> <span class="mws-report-value"
+			style="font-size: 1.8em; margin-top: 7px;"><?php $total = $morning + $night; echo round($total, 2); ?> ك</span>
+	</span>
+	</a> <a class="mws-report" href="#"> <span
+		class="mws-report-icon mws-ic ic-building"></span> <span
+		class="mws-report-content"> <span class="mws-report-title">الموجود
+				فعليا بالمخرن</span> <span class="mws-report-value"
+			style="font-size: 1.8em; margin-top: 7px;"><?php $instore = Store::getStore()->milk; echo round($instore, 2) ?> ك</span>
+	</span>
+	</a>
 </div>
-<?php endif; ?>
-<?php if(!$task) echo Distribution::renderForControl("SELECT * FROM farmers", "Farmer"); ?>
+<h3>
+	<a href="/trans-distreport" style="text-decoration: none;"
+		class="mws-tooltip-n mws-button blue">تعديل كمميات اليوم</a>
+</h3>
+<form action="" method="post" autocomplete="off">
+    <?php echo Distribution::renderForControl("SELECT * FROM farmers WHERE status = 1", "Farmer"); ?>
+    <input type="submit" name="save" value="حفظ">
+</form>

@@ -264,7 +264,7 @@ $(document).ready(function() {
 	    if (e.keyCode == 40) { 
 	        var index = $("input:focus").parent().index();
 	        var mainTr = $("input:focus").parent().parent();
-	        mainTr.next().children("td:eq(" + index + ")").children("input").focus();
+	        mainTr.next().children("td:eq(" + index + ")").children("input[type=text]").focus();
 	        return false;
 	    }
 	});
@@ -274,7 +274,7 @@ $(document).ready(function() {
 	    if (e.keyCode == 38) { 
 	    	var index = $("input:focus").parent().index();
 	        var mainTr = $("input:focus").parent().parent();
-	        mainTr.prev().children("td:eq(" + index + ")").children("input").focus();
+	        mainTr.prev().children("td:eq(" + index + ")").children("input[type=text]").focus();
 	        return false;
 	    }
 	});
@@ -283,7 +283,7 @@ $(document).ready(function() {
 	$(document).keydown(function(e){
 	    if (e.keyCode == 39) { 
 	       var mainTr = $("input:focus").parent();
-	       mainTr.next().children("input").focus();
+	       mainTr.next().children("input[type=text]").focus();
 	       return false;
 	    }
 	});
@@ -292,7 +292,7 @@ $(document).ready(function() {
 	$(document).keydown(function(e){
 	    if (e.keyCode == 37) { 
 	       var mainTr = $("input:focus").parent();
-	       mainTr.prev().children("input").focus();
+	       mainTr.prev().children("input[type=text]").focus();
 	       return false;
 	    }
 	});

@@ -1,10 +1,14 @@
 <?php
 $item = new Form("AnimalFood", "animalfood", 
         array(
-                "name"
+                "name",
+                "sellprice",
+                "buyprice"
         ), 
         array(
-               	"name" => "The Items's name"
+               	"name" => "The Items's name",
+                "sellprice" => "The Items's sell price",
+                "buyprice" => "The Items's buy price",
         ), "/" . Helper::getView());
 
 $task = $item->getTask();
@@ -26,6 +30,20 @@ Messenger::appMessenger();
 					<div class="mws-form-item large">
 						<input type="text" name="name" class="mws-textinput"
 							value="<?php Form::_e('name', $object) ?>">
+					</div>
+				</div>
+				<div class="mws-form-row">
+					<label>سعر بيع الشكارة</label>
+					<div class="mws-form-item small">
+						<input type="text" name="sellprice" class="mws-textinput"
+							value="<?php Form::_e('sellprice', $object) ?>">
+					</div>
+				</div>
+				<div class="mws-form-row">
+					<label>سعر شراء الشكارة</label>
+					<div class="mws-form-item small">
+						<input type="text" name="buyprice" class="mws-textinput"
+							value="<?php Form::_e('buyprice', $object) ?>">
 					</div>
 				</div>
 			</div>

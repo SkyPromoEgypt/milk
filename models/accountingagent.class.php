@@ -1,32 +1,23 @@
 <?php
 
-class Supplier extends DatabaseModel
+class AccountingAgent extends DatabaseModel
 {
 
     public $id;
 
-    public $name;
+    public $agent_id;
 
-    public $address;
+    public $paid;
 
-    public $phone;
+    public $created;
 
-    public $notes;
-
-    public $status;
-    
-    public $tohim;
-
-    protected $tableName = "suppliers";
+    protected $tableName = "accountingagent";
 
     protected $fields = array(
             'id',
-            'name',
-            'address',
-            'phone',
-            'notes',
-            'status',
-            'tohim'
+            'agent_id',
+            'paid',
+            'created'
     );
 
     public static function renderForControl ($sql, $className)
@@ -42,44 +33,54 @@ class Supplier extends DatabaseModel
         
         $output = '<div class="mws-panel grid_8">
                     <div class="mws-panel-header">
-                        <span class="mws-i-24 i-table-1">قائمة بكل الموردين في قاعدة البيانات</span>
+                        <span class="mws-i-24 i-table-1">قائمة بمدفوعات العملاء</span>
                     </div>
                     <div class="mws-panel-body">
                         <div class="mws-panel-toolbar top clearfix">
                             <ul>
-                                <li><a class="mws-ic-16 ic-add" href="' . $mainUrl . '/add">اضافة</a></li>
-                                <li><a class="mws-ic-16 ic-edit" id="editLink" href="' . $mainUrl . '/edit">تعديل</a></li>
-                                <li><a class="mws-ic-16 ic-cross" id="deleteLink" href="' . $mainUrl . '/delete" onclick="' . $js . '">حذف</a></li>
+                                <li><a class="mws-ic-16 ic-add" href="' .
+                 $mainUrl .
+                 '/add">اضافة</a></li>
+                                <li><a class="mws-ic-16 ic-edit" id="editLink" href="' .
+                 $mainUrl .
+                 '/edit">تعديل</a></li>
+                                <li><a class="mws-ic-16 ic-cross" id="deleteLink" href="' .
+                 $mainUrl . '/delete" onclick="' . $js . '">حذف</a></li>
                             </ul>
                         </div>
                         <table class="mws-datatable-fn mws-table">
                             <thead>
                                 <tr>
                                     <td></td>
-                                    <th>كود المورد</th>
-                                    <th>اسم المورد</th>
-                                    <th>عنوان المورد</th>
+                                    <th>اسم العميل</th>
+                                    <th>المبلغ المدفوع</th>
+                                    <th>تاريخ الدفع</th>
                                 </tr>
                             </thead>
                             <tbody>';
         
         if (! is_array($items)) {
+            $agent = Agent::read("SELECT * FROM agents WHERE id = $items->agent_id", 
+                    PDO::FETCH_CLASS, 'Agent');
             $output .= '<tr class="gradeX">
                     <td><input class="idSwitcher" type="radio" rel="' .
                      $items->id . '" /></td>
-                    <td>MPRDAgent-' . $items->id . '</td>
-                    <td>' . $items->name . '</td>
-                    <td class="center">' . $items->address . ' </td>
+                    <td>' . $agent->name . '</td>
+                    <td>' . $items->paid . '</td>
+                    <td class="center">' .
+                     $items->created . ' </td>
                 </tr>';
         } else {
             foreach ($items as $item) {
+                $agent = Agent::read("SELECT * FROM agents WHERE id = $item->agent_id",
+                        PDO::FETCH_CLASS, 'Agent');
                 $output .= '
                 <tr class="gradeX">
-                    <td><input class="idSwitcher" rel="' .
-                         $item->id . '" type="radio" name="selectedRecord" /></td>
-                    <td>MPRDAgent-' . $item->id . '</td>
-                    <td>' . $item->name . '</td>
-                    <td class="center">' . $item->address . ' </td>
+                    <td><input class="idSwitcher" rel="' . $item->id . '" type="radio" name="selectedRecord" /></td>
+                    <td>' . $agent->name . '</td>
+                    <td>' . $item->paid . '</td>
+                    <td class="center">' .
+                         $item->created . ' </td>
                 </tr>';
             }
         }
@@ -87,17 +88,17 @@ class Supplier extends DatabaseModel
         return $output;
     }
     
-    public static function renderTransactionsList ($sql)
+    public static function renderAccounting ($sql)
     {
-        $items = Farmer::read($sql, PDO::FETCH_CLASS, 'AnimalFoodTransaction');
+        $items = Farmer::read($sql, PDO::FETCH_CLASS, __CLASS__);
         $mainUrl = '/' . Helper::getView();
     
         $output = '<table class="mws-table">
                             <thead>
                                 <tr>
                                     <th>التاريخ</th>
-                                    <th>الكمية الموردة</th>
-                                    <th>السعر</th><th>مسلسل</th>
+                                    <th>اللمدفوع</th>
+                                    <th>مسلسل</th>
                                 </tr>
                             </thead>
                             <tbody>';
@@ -105,8 +106,7 @@ class Supplier extends DatabaseModel
         if (! is_array($items)) {
             $output .= '<tr class="gradeX">
                     <td>' . $items->created . '</td>
-                    <td>' . $items->quantity . '</td>
-                    <td>' . $items->price . '</td>
+                    <td>' . $items->paid . '</td>
                     <td>1</td>
                 </tr>';
         } else {
@@ -114,9 +114,8 @@ class Supplier extends DatabaseModel
             foreach ($items as $item) {
                 $output .= '
                 <tr class="gradeX">
-                    <td>' . $item->price . '</td>
                     <td>' . $item->created . '</td>
-                    <td>' . $item->quantity . '</td>
+                    <td>' . $item->paid . '</td>
                     <td>' . $i ++ . '</td>
                 </tr>';
             }

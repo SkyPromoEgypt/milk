@@ -2,7 +2,8 @@
 
 class AnimalFoodForm extends Form
 {
-public function process ()
+
+    public function process ()
     {
         switch ($this->getTask()) {
             case "add":
@@ -13,9 +14,17 @@ public function process ()
                         $element->$attribute = $_POST[$attribute];
                     }
                     $element->created = date("Y-m-d H:i:s");
+                    $supplier = Supplier::read(
+                            "SELECT * FROM suppliers WHERE id = $element->supplier_id", 
+                            PDO::FETCH_CLASS, 'Supplier');
+                    $type = AnimalFood::read(
+                            "SELECT * FROM animalfood WHERE id = $element->cat_id", 
+                            PDO::FETCH_CLASS, 'AnimalFood');
+                    $element->price = $type->buyprice;
                     if ($element->save()) {
-                        $type = AnimalFood::read("SELECT * FROM animalfood WHERE id = $element->cat_id", PDO::FETCH_CLASS, 'AnimalFood');
                         $type->quantity += $element->quantity;
+                        $supplier->tohim += $element->quantity * $element->price;
+                        $supplier->save();
                         $type->save();
                         Messenger::setMessenger($this->onSuccess, APP_MESSAGE);
                     } else {
@@ -31,16 +40,36 @@ public function process ()
                     foreach ($this->_requiredAttributes as $attribute) {
                         $this->_itemObject->$attribute = $_POST[$attribute];
                     }
-                    $type = AnimalFood::read("SELECT * FROM animalfood WHERE id = " . $this->_itemObject->cat_id, PDO::FETCH_CLASS, 'AnimalFood');
+                    $supplier = Supplier::read(
+                            "SELECT * FROM suppliers WHERE id = " .
+                                     $this->_itemObject->supplier_id, 
+                                    PDO::FETCH_CLASS, 'Supplier');
+                    $type = AnimalFood::read(
+                            "SELECT * FROM animalfood WHERE id = " .
+                                     $this->_itemObject->cat_id, 
+                                    PDO::FETCH_CLASS, 'AnimalFood');
                     if ($this->_itemObject->quantity > $oldQuantity) {
-                        $type->quantity += $this->_itemObject->quantity;
+                        $type->quantity += $this->_itemObject->quantity -
+                                 $oldQuantity;
+                        $supplier->tohim -= $oldQuantity *
+                                 $this->_itemObject->price;
+                        $supplier->tohim += $this->_itemObject->quantity *
+                                 $this->_itemObject->price;
+                        $supplier->save();
                         $type->save();
                     } else {
-                        if(($type->quantity - $this->_itemObject->quantity) < 0) {
-                            Messenger::setMessenger("Sorry you can not edit this item because the quantity will be below zero");
+                        if (($type->quantity - $this->_itemObject->quantity) < 0) {
+                            Messenger::setMessenger(
+                                    "Sorry you can not edit this item because the quantity will be below zero");
                             return false;
                         } else {
-                            $type->quantity -= $this->_itemObject->quantity;
+                            $type->quantity -= $oldQuantity -
+                                     $this->_itemObject->quantity;
+                            $supplier->tohim -= $oldQuantity *
+                                     $this->_itemObject->price;
+                            $supplier->tohim += $this->_itemObject->quantity *
+                                     $this->_itemObject->price;
+                            $supplier->save();
                             $type->save();
                         }
                     }
@@ -54,13 +83,24 @@ public function process ()
                 break;
             case "delete":
                 if ($this->_itemObject) {
-                    $type = AnimalFood::read("SELECT * FROM animalfood WHERE id = " . $this->_itemObject->cat_id, PDO::FETCH_CLASS, 'AnimalFood');
+                    $type = AnimalFood::read(
+                            "SELECT * FROM animalfood WHERE id = " .
+                                     $this->_itemObject->cat_id, 
+                                    PDO::FETCH_CLASS, 'AnimalFood');
                     $quantity = $this->_itemObject->quantity;
-                    if(($type->quantity - $quantity) < 0) {
-                        Messenger::setMessenger("Sorry you can not edit this item because the quantity will be below zero");
+                    $supplier = Supplier::read(
+                            "SELECT * FROM suppliers WHERE id = " .
+                                     $this->_itemObject->supplier_id, 
+                                    PDO::FETCH_CLASS, 'Supplier');
+                    if (($type->quantity - $quantity) < 0) {
+                        Messenger::setMessenger(
+                                "Sorry you can not edit this item because the quantity will be below zero");
                         return false;
                     } else {
                         $type->quantity -= $this->_itemObject->quantity;
+                        $supplier->tohim -= $this->_itemObject->quantity *
+                                 $this->_itemObject->price;
+                        $supplier->save();
                         $type->save();
                     }
                     if ($this->_itemObject->delete()) {

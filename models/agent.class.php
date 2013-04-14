@@ -14,6 +14,8 @@ class Agent extends DatabaseModel
     public $notes;
 
     public $status;
+    
+    public $onhim;
 
     protected $tableName = "agents";
 
@@ -23,7 +25,8 @@ class Agent extends DatabaseModel
             'address',
             'phone',
             'notes',
-            'status'
+            'status',
+            'onhim'
     );
 
     public static function renderForControl ($sql, $className)
@@ -81,6 +84,44 @@ class Agent extends DatabaseModel
             }
         }
         $output .= '</tbody></table></div></div>';
+        return $output;
+    }
+    
+    public static function renderTransactionsList ($sql)
+    {
+        $items = Farmer::read($sql, PDO::FETCH_CLASS, 'AgentTransaction');
+        $mainUrl = '/' . Helper::getView();
+    
+        $output = '<table class="mws-table">
+                            <thead>
+                                <tr><th>مسلسل</th>
+                                    <th>التاريخ</th>
+                                    <th>الكمية الموردة</th>
+                                    <th>السعر</th>
+                                </tr>
+                            </thead>
+                            <tbody>';
+    
+        if (! is_array($items)) {
+            $output .= '<tr class="gradeX">
+                    <td>1</td>
+                    <td>' . $items->created . '</td>
+                    <td>' . $items->quantity . '</td>
+                    <td>' . $items->price . '</td>
+                </tr>';
+        } else {
+            $i = 1;
+            foreach ($items as $item) {
+                $output .= '
+                <tr class="gradeX">
+                    <td>' . $item->price . '</td>
+                    <td>' . $item->created . '</td>
+                    <td>' . $item->quantity . '</td>
+                    <td>' . $i ++ . '</td>
+                </tr>';
+            }
+        }
+        $output .= '</tbody></table>';
         return $output;
     }
 }

@@ -10,9 +10,9 @@
 {
 	width:18% !important;
 	min-width:170px;
-	margin:8px 1%;
+	margin: 8px 0 0px 8px;
 	height:80px;
-	float:left;
+	float:right;
 	cursor:pointer;
 	display:block;
 	text-decoration:none;
@@ -74,13 +74,16 @@
 .mws-report .mws-report-content .mws-report-title
 {
 	white-space:nowrap;
+	text-align:right;
+	display: block;
 }
 
 .mws-report .mws-report-content .mws-report-value
 {
-	font-size:32px;
+	font-size:18px !important;
 	font-weight:bold;
-	display:inline-block;
+	display: block !important;
+	text-align: right;
 }
 
 .mws-report .mws-report-content .mws-report-value.up

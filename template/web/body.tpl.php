@@ -36,9 +36,7 @@
 	<!-- End Main Container -->
 
 	<!-- Footer -->
-	<div id="mws-footer">
-            	جميع حقوق البرنامج محفوظة لشركة سكاي برومو مصر &copy; <?php echo date("Y") ?> ، تصميم و تطوير شركة سكاي برومو مصر 
-            </div>
+	
 	<!-- End Footer -->
 
 </div>

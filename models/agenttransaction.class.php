@@ -1,54 +1,49 @@
 <?php
 
-class AnimalFoodTransaction extends DatabaseModel
+class AgentTransaction extends DatabaseModel
 {
 
     public $id;
-    
-    public $cat_id;
 
-    public $supplier_id;
-    
-    public $created;
+    public $agent_id;
 
     public $quantity;
-    
+
     public $lost;
     
     public $price;
 
-    protected $tableName = "animalfoodtransactions";
-    
-    public static $table = 'animalfoodtransactions';
+    public $created;
+
+    protected $tableName = "agenttransactions";
 
     protected $fields = array(
             'id',
-            'cat_id',
-            'supplier_id',
-            'created',
+            'agent_id',
             'quantity',
             'lost',
-            'price'
+            'price',
+            'created'
     );
     
-    public static function getAllQuantitiesOfThisMonth()
+    public static function getTransactionsOfThisMonth()
     {
         $startDate = date("Y") . '-' . date("m") . '-1';
         $endDate = date("Y") . '-' . date("m") . '-31';
-        $sql = "SELECT SUM(quantity) as q FROM animalfoodtransactions WHERE created >= '$startDate' AND created <= '$endDate'";
+        $sql = "SELECT SUM(quantity) as q FROM agenttransactions WHERE created >= '$startDate' AND created <= '$endDate'";
         $result = self::read($sql, PDO::FETCH_CLASS, __CLASS__);
         return $result ? $result->q : 0;
     }
     
-    public static function getLostOfThisMonth()
+    public static function getLostTransactionsOfThisMonth()
     {
         $startDate = date("Y") . '-' . date("m") . '-1';
         $endDate = date("Y") . '-' . date("m") . '-31';
-        $sql = "SELECT SUM(lost) as q FROM animalfoodtransactions WHERE created >= '$startDate' AND created <= '$endDate'";
+        $sql = "SELECT SUM(lost) as q FROM agenttransactions WHERE created >= '$startDate' AND created <= '$endDate'";
         $result = self::read($sql, PDO::FETCH_CLASS, __CLASS__);
         return $result ? $result->q : 0;
     }
-
+    
     public static function renderForControl ($sql, $className)
     {
         $items = self::read($sql, PDO::FETCH_CLASS, $className);
@@ -62,23 +57,27 @@ class AnimalFoodTransaction extends DatabaseModel
         
         $output = '<div class="mws-panel grid_8">
                     <div class="mws-panel-header">
-                        <span class="mws-i-24 i-table-1">قائمة بتورديات العلف في قاعدة البيانات</span>
+                        <span class="mws-i-24 i-table-1">قائمة بالتعاملات مع العملاء</span>
                     </div>
                     <div class="mws-panel-body">
                         <div class="mws-panel-toolbar top clearfix">
                             <ul>
-                                <li><a class="mws-ic-16 ic-add" href="' . $mainUrl . '/add">اضافة</a></li>
-                                <li><a class="mws-ic-16 ic-edit" id="editLink" href="' . $mainUrl . '/edit">تعديل</a></li>
-                                <li><a class="mws-ic-16 ic-cross" id="deleteLink" href="' . $mainUrl . '/delete" onclick="' . $js . '">حذف</a></li>
+                                <li><a class="mws-ic-16 ic-add" href="' .
+                 $mainUrl .
+                 '/add">إضافة</a></li>
+                                <li><a class="mws-ic-16 ic-edit" id="editLink" href="' .
+                 $mainUrl .
+                 '/edit">تعديل</a></li>
+                                <li><a class="mws-ic-16 ic-cross" id="deleteLink" href="' .
+                 $mainUrl . '/delete" onclick="' . $js . '">حذف</a></li>
                             </ul>
                         </div>
                         <table class="mws-datatable-fn mws-table">
                             <thead>
                                 <tr>
                                     <td></td>
-                                    <th>سجل</th>
-                                    <th>اسم المورد</th>
-                                    <th>تاريخ التوريد</th>    
+                                    <th>العميل</th>
+                                    <th>التاريخ</th>
                                     <th>الكمية</th>
                                 </tr>
                             </thead>
@@ -88,9 +87,10 @@ class AnimalFoodTransaction extends DatabaseModel
             $output .= '<tr class="gradeX">
                     <td><input class="idSwitcher" type="radio" rel="' .
                      $items->id . '" /></td>
-                    <td>MPRDItem-' . $items->id . '</td>
-                    <td>' . Supplier::read("SELECT * FROM suppliers WHERE id = $items->supplier_id", PDO::FETCH_CLASS, "Supplier")->name . '</td>
-                    <td>' . $items->created . '</td>
+                    <td>' . Agent::read(
+                            "SELECT name FROM agents WHERE id = $items->agent_id", 
+                            PDO::FETCH_CLASS, 'Agent')->name . '</td>
+                    <td>' . $items->created . '</td>        
                     <td class="center">' . $items->quantity . ' </td>
                 </tr>';
         } else {
@@ -99,9 +99,10 @@ class AnimalFoodTransaction extends DatabaseModel
                 <tr class="gradeX">
                     <td><input class="idSwitcher" rel="' .
                          $item->id . '" type="radio" name="selectedRecord" /></td>
-                    <td>MPRDItem-' . $item->id . '</td>
-                    <td>' . Supplier::read("SELECT * FROM suppliers WHERE id = $item->supplier_id", PDO::FETCH_CLASS, "Supplier")->name . '</td>
-                    <td>' . $item->created . '</td>
+                    <td>' . Agent::read(
+                                "SELECT name FROM agents WHERE id = $item->agent_id", 
+                                PDO::FETCH_CLASS, 'Agent')->name . '</td>
+                    <td class="center">' . $item->created . ' </td>
                     <td class="center">' . $item->quantity . ' </td>
                 </tr>';
             }
@@ -109,4 +110,4 @@ class AnimalFoodTransaction extends DatabaseModel
         $output .= '</tbody></table></div></div>';
         return $output;
     }
-}    
+}

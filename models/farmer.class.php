@@ -12,6 +12,10 @@ class Farmer extends DatabaseModel
     public $notes;
 
     public $status;
+    
+    public $onhim;
+    
+    public $tohim;
 
     protected $tableName = "farmers";
 
@@ -20,7 +24,9 @@ class Farmer extends DatabaseModel
             'name',
             'specialprice',
             'notes',
-            'status'
+            'status',
+            'onhim',
+            'tohim'
     );
 
     public static function renderForControl ($sql, $className)

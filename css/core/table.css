@@ -21,6 +21,7 @@ table.mws-table
 	padding:10px 16px;
 	border-bottom:1px solid #cccccc;
 	border-left:1px solid #cccccc;
+	text-align: right;
 }
 
 .mws-table tbody td, 
@@ -30,6 +31,7 @@ table.mws-table
 	border-left-width:1px;
 	border-left-style:dotted;
 	border-left-color:#bebebe !important;
+	text-align: right;
 }
 
 .mws-table tbody td:first-child, 

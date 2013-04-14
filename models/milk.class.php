@@ -7,7 +7,9 @@ class Milk extends DatabaseModel
     
     public $name;
     
-    public $price;
+    public $sellprice;
+    
+    public $buyprice;
 
     protected $tableName = "milk";
     
@@ -16,8 +18,19 @@ class Milk extends DatabaseModel
     protected $fields = array(
             'id',
             'name',
-            'price'
+            'sellprice',
+            'buyprice'
     );
+    
+    public static function getBuyPrice()
+    {
+        return Milk::read("SELECT * FROM milk WHERE id = 4", PDO::FETCH_CLASS, __CLASS__)->buyprice;
+    }
+    
+    public static function getBuyPrice2()
+    {
+        return Milk::read("SELECT * FROM milk WHERE id = 5", PDO::FETCH_CLASS, __CLASS__)->buyprice;
+    }
 
     public static function renderForControl ($sql, $className)
     {
@@ -48,7 +61,8 @@ class Milk extends DatabaseModel
                                     <td></td>
                                     <th>سجل</th>
                                     <th>نوع اللبن</th>    
-                                    <th>سعر اللبن</th>
+                                    <th>سعر الشراء</th>
+                                    <th>سعر البيع</th>
                                 </tr>
                             </thead>
                             <tbody>';
@@ -59,7 +73,8 @@ class Milk extends DatabaseModel
                      $items->id . '" /></td>
                     <td>MPRDItem-' . $items->id . '</td>
                     <td>' . $items->name . '</td>
-                    <td class="center">' . $items->price . ' </td>
+                    <td class="center">' . $items->buyprice . ' </td>
+                    <td class="center">' . $items->sellprice . ' </td>
                 </tr>';
         } else {
             foreach ($items as $item) {
@@ -69,7 +84,8 @@ class Milk extends DatabaseModel
                          $item->id . '" type="radio" name="selectedRecord" /></td>
                     <td>MPRDItem-' . $item->id . '</td>
                     <td>' . $item->name . '</td>
-                    <td class="center">' . $item->price . ' </td>
+                    <td class="center">' . $item->buyprice . ' </td>
+                    <td class="center">' . $item->sellprice . ' </td>        
                 </tr>';
             }
         }
