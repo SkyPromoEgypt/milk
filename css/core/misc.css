@@ -100,6 +100,7 @@
 {
 	background-position:12px center;
 	padding-left:40px;
+	float: right;
 }
 
 .mws-wizard ul li:first-child
@@ -200,7 +201,7 @@ div.mws-panel-toolbar.right ul
 
 div.mws-panel-toolbar ul
 {
-	float:left;
+	float:right;
 }
 
 div.mws-panel-toolbar.right ul li
@@ -212,7 +213,7 @@ div.mws-panel-toolbar.right ul li
 div.mws-panel-toolbar ul li
 {
 	display:block;
-	float:left;
+	float:right;
 	border-right:1px solid #d0d0d0;
 }
 

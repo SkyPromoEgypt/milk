@@ -52,8 +52,8 @@ p.message {
 
 div#mws-header
 {
-	background:url(../../images/core/mws-header-bg.png) repeat-x;
-	height:58px;
+	background:url(../../images/core/mws-header-bg.png) repeat;
+	height:65px;
 	border-bottom:4px solid;
 	z-index:1;
 	position:absolute;
@@ -70,19 +70,22 @@ div#mws-header
 
 div#mws-logo-container
 {
-	width:180px;
-	height:58px;
+	height:50px;
 	float:right;
 	padding:0 10px;
 }
 
 div#mws-logo-container #mws-logo-wrap
 {
-	width:180px;
-	height:58px;
+	padding: 10px 0 0 0;
+	height:50px;
 	text-align:center;
 	vertical-align:middle;
 	display:table-cell;
+}
+
+div#mws-logo-container #mws-logo-wrap h1 {
+	color: white;
 }
 
 div#mws-logo-container #mws-logo-wrap img
@@ -370,10 +373,10 @@ div#mws-wrapper
 
 div#mws-sidebar
 {
-	width:200px;
-	padding-right:6px;
+	width:210px;
+	padding-left:6px;
 	padding-top:72px;
-	float:left;
+	float:right;
 	z-index:1;
 	position:relative;
 }
@@ -387,7 +390,7 @@ div#mws-sidebar-bg
 
 div#mws-sidebar-stitch
 {
-	left:189px;
+	right:202px;
 	width:17px;
 	z-index:2;
 	background:url(../../images/core/mws-sidebar-stitch.png) repeat-y;
@@ -395,9 +398,9 @@ div#mws-sidebar-stitch
 
 div#mws-sidebar-bg
 {
-	left:0;
+	right:0;
 	z-index:0;
-	width:200px;
+	width:210px;
 	background:url(../../images/core/mws-sidebar-bg.png);
 }
 
@@ -474,6 +477,7 @@ div#mws-navigation ul li span
 	position:relative;
 	padding:11px 48px 11px 40px;
 	line-height:20px;
+	text-align: right;
 }
 
 div#mws-navigation ul li a.mws-ic, 
@@ -486,8 +490,8 @@ div#mws-navigation ul li span.mws-ic
 div#mws-navigation ul li a.mws-i-24, 
 div#mws-navigation ul li span.mws-i-24
 {
-	padding-left:40px;
-	background-position:8px center;
+	padding-right:30px;
+	background-position:160px center;
 }
 
 div#mws-navigation ul li span.mws-nav-tooltip
@@ -549,15 +553,13 @@ div#mws-navigation ul li ul li a.active {
 
 div#mws-container
 {
-	margin-left:206px;
+	margin-right:206px;
 	padding-top:100px;
 	min-height:100%;
 }
 
 div#mws-container .container
 {
-	float:left;
-	margin:0 4%;
 }
 
 a#editLink, a#deleteLink {

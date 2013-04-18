@@ -11,7 +11,7 @@ class DatabaseModel
     {
         $string = array();
         foreach ($this->fields as $field) {
-            if (is_int($this->$field)) {
+            if (is_int($this->$field) || is_float($this->$field) || is_double($this->$field)) {
                 $string[] = "$field = " . $this->$field . "";
             } else {
                 $string[] = "$field = '" . $this->$field . "'";
@@ -38,6 +38,12 @@ class DatabaseModel
         } else {
             return false;
         }
+    }
+    
+    final public static function getById($id, $table, $class)
+    {
+        $sql = 'SELECT * FROM ' . $table . ' WHERE id = ' . $id;
+        return self::read($sql, PDO::FETCH_CLASS, $class);
     }
     
     public static function getAll($table)

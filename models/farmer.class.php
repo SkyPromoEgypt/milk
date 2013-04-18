@@ -55,29 +55,25 @@ class Farmer extends DatabaseModel
                         <table class="mws-datatable-fn mws-table">
                             <thead>
                                 <tr>
-                                    <td></td>
-                                    <th>كود المزارع</th>
                                     <th>اسم المزارع</th>
+                                    <td width="2%"></td>
                                 </tr>
                             </thead>
                             <tbody>';
         
         if (! is_array($items)) {
             $output .= '<tr class="gradeX">
+                    <td>' . $items->name . '</td>
                     <td><input class="idSwitcher" type="radio" rel="' .
                      $items->id . '" /></td>
-                    <td>MPRDFarmer-' . $items->id . '</td>
-                    <td>' . $items->name . '</td>
-                    <td>' . $items->age . ' </td>
                 </tr>';
         } else {
             foreach ($items as $item) {
                 $output .= '
                 <tr class="gradeX">
+                    <td>' . $item->name . '</td>
                     <td><input class="idSwitcher" rel="' .
                          $item->id . '" type="radio" name="selectedRecord" /></td>
-                    <td>MPRDFarmer-' . $item->id . '</td>
-                    <td>' . $item->name . '</td>
                 </tr>';
             }
         }

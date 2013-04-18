@@ -4,7 +4,10 @@
 	<!-- Logo Wrapper -->
 	<div id="mws-logo-container">
 		<div id="mws-logo-wrap">
-			<a href="/"><img src="images/mws-logo.png" alt="mws admin" /></a>
+			<h1>
+				برنامج إدارة مراكز توريد الالبان <a href="/"><img
+					src="images/logo.png" alt="mws admin" /></a>
+			</h1>
 		</div>
 	</div>
         

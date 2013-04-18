@@ -55,31 +55,31 @@ class Supplier extends DatabaseModel
                         <table class="mws-datatable-fn mws-table">
                             <thead>
                                 <tr>
-                                    <td></td>
-                                    <th>كود المورد</th>
-                                    <th>اسم المورد</th>
+                                    <th>هاتف المورد</th>
                                     <th>عنوان المورد</th>
+                                    <th>اسم المورد</th>
+                                    <td width="2%"></td>
                                 </tr>
                             </thead>
                             <tbody>';
         
         if (! is_array($items)) {
             $output .= '<tr class="gradeX">
+                    <td class="center">' . $items->phone . ' </td>
+                    <td class="center">' . $items->address . ' </td>
+                    <td>' . $items->name . '</td>
                     <td><input class="idSwitcher" type="radio" rel="' .
                      $items->id . '" /></td>
-                    <td>MPRDAgent-' . $items->id . '</td>
-                    <td>' . $items->name . '</td>
-                    <td class="center">' . $items->address . ' </td>
                 </tr>';
         } else {
             foreach ($items as $item) {
                 $output .= '
                 <tr class="gradeX">
-                    <td><input class="idSwitcher" rel="' .
-                         $item->id . '" type="radio" name="selectedRecord" /></td>
-                    <td>MPRDAgent-' . $item->id . '</td>
-                    <td>' . $item->name . '</td>
+                    <td class="center">' . $item->phone . ' </td>
                     <td class="center">' . $item->address . ' </td>
+                    <td>' . $item->name . '</td>
+                    <td><input class="idSwitcher" name="supplier" type="radio" rel="' .
+                     $item->id . '" /></td>
                 </tr>';
             }
         }

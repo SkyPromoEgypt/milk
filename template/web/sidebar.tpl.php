@@ -39,6 +39,14 @@
 					<li><a <?php Helper::activeItem("reporting-suppliers"); ?>  href="/reporting-suppliers">الموردين</a></li>
 				</ul>
 			</li>
+			<li><a href="" class="mws-i-24 i-list">الاحصائيات</a>
+				<ul>
+					<li><a <?php Helper::activeItem("stats-milk"); ?>  href="/stats-milk">اللبن</a></li>
+					<li><a <?php Helper::activeItem("stats-farmers"); ?>  href="/stats-farmers">الفلاحين</a></li>
+					<li><a <?php Helper::activeItem("stats-agents"); ?>  href="/stats-agents">العملاء</a></li>
+					<li><a <?php Helper::activeItem("stats-suppliers"); ?>  href="/stats-suppliers">الموردين</a></li>
+				</ul>
+			</li>
 		</ul>
 	</div>
 	<!-- End Navigation -->

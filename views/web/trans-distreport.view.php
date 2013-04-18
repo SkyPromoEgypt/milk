@@ -33,13 +33,44 @@ if ($id) {
             if ($oldQuantity >= $newQuantity) {
                 // modify quantity
                 $store->milk -= ($oldQuantity - $newQuantity);
-                // check the value on the store
-                $addedOnUs = $oldQuantity * $oldPrice;
-                $previousStoreOnUs = $store->onus - $addedOnUs;
-                $store->onus = $previousStoreOnUs;
-                $store->onus += $newQuantity * $price;
-                $farmer->tohim = $previousStoreOnUs;
-                $farmer->tohim += $newQuantity * $price;
+                
+                // Re-Calculate the farmer's account
+                $previouslyAdded = $oldQuantity * $oldPrice;
+                
+                // First Adjust onhim and tohim
+                
+                // case owes us money
+                if($farmer->tohim >=0 && $farmer->onhim <=0) {
+                    
+                    // remove the previously added on his account
+                    $farmer->tohim -= $previouslyAdded;
+                    
+                    // if doesn't owe us money
+                    if($farmer->tohim < 0) {
+                        $farmer->onhim = abs($farmer->tohim);
+                        $farmer->tohim = 0;
+                        
+                        // make the new calculations
+                        $farmer->onhim -= $newQuantity * $newPrice;
+                        
+                        // check again
+                        if($farmer->onhim < 0) {
+                            $farmer->tohim += abs($farmer->onhim);
+                            $farmer->onhim = 0;
+                        }
+                    } else {
+                        // still owes us money
+                        $farmer->tohim += $newPrice * $newQuantity;
+                    }
+                } elseif ($farmer->tohim <=0 && $farmer->onhim >=0) {
+                    $farmer->onhim += $previouslyAdded;
+                    $farmer->onhim -= $newPrice * $newQuantity;
+                    if($farmer->onhim < 0) {
+                        $farmer->tohim = abs($farmer->onhim);
+                        $farmer->onhim = 0;
+                    }
+                }
+                
                 $farmer->save();
                 $store->save();
                 $record->save();
@@ -48,12 +79,26 @@ if ($id) {
                 // modify quantity
                 $store->milk += ($newQuantity - $oldQuantity);
                 // check the value on the store
-                $addedOnUs = $oldQuantity * $oldPrice;
-                $previousStoreOnUs = $store->onus - $addedOnUs;
-                $store->onus = $previousStoreOnUs;
-                $store->onus += $newQuantity * $price;
-                $farmer->tohim = $previousStoreOnUs;
-                $farmer->tohim += $newQuantity * $price;
+                
+                // Re-Calculate the farmer's account
+                $previouslyAdded = $oldQuantity * $oldPrice;
+                
+                // First Adjust onhim and tohim
+                
+                // case owes us money
+                if($farmer->tohim >=0 && $farmer->onhim <=0) {
+                    // remove the previously added on his account
+                    $farmer->tohim -= $previouslyAdded;
+                    $farmer->tohim += $newPrice * $newQuantity;
+                } elseif ($farmer->tohim <=0 && $farmer->onhim >=0) {
+                    $farmer->onhim += $previouslyAdded;
+                    $farmer->onhim -= $newPrice * $newQuantity;
+                    if($farmer->onhim < 0) {
+                        $farmer->tohim = abs($farmer->onhim);
+                        $farmer->onhim = 0;
+                    }
+                }
+                
                 $farmer->save();
                 $store->save();
                 $record->save();

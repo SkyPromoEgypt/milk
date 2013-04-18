@@ -13,6 +13,11 @@ class AnimalFoodForm extends Form
                     foreach ($this->_requiredAttributes as $attribute) {
                         $element->$attribute = $_POST[$attribute];
                     }
+                    if ($element->quantity < $element->lost) {
+                        Messenger::setMessenger(
+                                "الكمية المطلوبة لا يمكن ان تكون اقل من الكمية المستلمة");
+                        return false;
+                    }
                     $element->created = date("Y-m-d H:i:s");
                     $supplier = Supplier::read(
                             "SELECT * FROM suppliers WHERE id = $element->supplier_id", 
@@ -39,6 +44,11 @@ class AnimalFoodForm extends Form
                     $oldQuantity = $this->_itemObject->quantity;
                     foreach ($this->_requiredAttributes as $attribute) {
                         $this->_itemObject->$attribute = $_POST[$attribute];
+                    }
+                    if ($this->_itemObject->quantity < $this->_itemObject->lost) {
+                        Messenger::setMessenger(
+                        "الكمية المطلوبة لا يمكن ان تكون اقل من الكمية المستلمة");
+                        return false;
                     }
                     $supplier = Supplier::read(
                             "SELECT * FROM suppliers WHERE id = " .

@@ -29,6 +29,10 @@ Messenger::appMessenger();
 				<div class="mws-form-row">
 					<label>المورد</label>
 					<div class="mws-form-item large">
+					    <?php if($task == 'edit') { ?>
+					    <?php echo Supplier::getById($object->supplier_id, 'suppliers', 'Supplier')->name; ?>
+					    <input type="hidden" name="supplier_id" value="<?php echo $object->supplier_id; ?>">
+					    <?php } else { ?>
 						<select name="supplier_id">
 						<?php 
 						    $types = Supplier::getAll("suppliers");
@@ -39,11 +43,16 @@ Messenger::appMessenger();
 						    }
 						?>
 						</select>
+						<?php } ?>
 					</div>
 				</div>
 				<div class="mws-form-row">
 					<label>نوع العلف</label>
 					<div class="mws-form-item large">
+					    <?php if($task == 'edit') { ?>
+					    <?php echo AnimalFood::getById($object->cat_id, 'animalfood', 'AnimalFood')->name; ?>
+					    <input type="hidden" name="cat_id" value="<?php echo $object->cat_id; ?>">
+					    <?php } else { ?>
 						<select name="cat_id">
 						<?php 
 						    $types = AnimalFood::getAll("animalfood");
@@ -54,6 +63,7 @@ Messenger::appMessenger();
 						    }
 						?>
 						</select>
+						<?php } ?>
 					</div>
 				</div>
 				<div class="mws-form-row">

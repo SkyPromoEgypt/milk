@@ -18,8 +18,6 @@ if (isset($_POST['save'])) {
                 "SELECT * FROM farmers WHERE id = " . $_POST['farmer'][$i], 
                 PDO::FETCH_CLASS, "Farmer");
         
-        $raise = 0;
-        
         $milk = 0;
         
         // Check the morning entry
@@ -43,8 +41,15 @@ if (isset($_POST['save'])) {
             $farmerArray['price'] = $price;
             
             if ($stmt->execute($farmerArray)) {
-                $farmer->tohim += $farmerArray['quantity'] * $price;
-                $raise += $farmerArray['quantity'] * $price;
+                if ($farmer->tohim <= 0 && $farmer->onhim >= 0) {
+                    $farmer->onhim -= $farmerArray['quantity'] * $price;
+                    if ($farmer->onhim < 0) {
+                        $farmer->tohim += abs($farmer->onhim);
+                        $farmer->onhim = 0;
+                    }
+                } elseif ($farmer->tohim >= 0 && $farmer->onhim <= 0) {
+                    $farmer->tohim += $farmerArray['quantity'] * $price;
+                }
                 $milk += $farmerArray['quantity'];
                 $farmer->save();
             }
@@ -71,14 +76,21 @@ if (isset($_POST['save'])) {
             $farmerArray['price'] = $price;
             
             if ($stmt->execute($farmerArray)) {
-                $farmer->tohim += $farmerArray['quantity'] * $price;
-                $raise += $farmerArray['quantity'] * $price;
+                if ($farmer->tohim <= 0 && $farmer->onhim >= 0) {
+                    $farmer->onhim -= $farmerArray['quantity'] * $price;
+                    if ($farmer->onhim < 0) {
+                        $farmer->tohim += abs($farmer->onhim);
+                        $farmer->onhim = 0;
+                    }
+                } elseif ($farmer->tohim >= 0 && $farmer->onhim <= 0) {
+                    $farmer->tohim += $farmerArray['quantity'] * $price;
+                }
                 $milk += $farmerArray['quantity'];
                 $farmer->save();
             }
         }
         
-        if ($raise != 0) {
+        if ($milk != 0) {
             $store->milk += $milk;
             $store->save();
         }
@@ -92,8 +104,7 @@ $night = Distribution::getMilkQuantities(false);
 	<a class="mws-report" href="#"> <span
 		class="mws-report-icon mws-ic ic-building"></span> <span
 		class="mws-report-content"> <span class="mws-report-title">تاريخ اليوم</span>
-			<span class="mws-report-value"
-			style="margin-top: 7px;"><?php echo date("Y/m/d"); ?></span>
+			<span class="mws-report-value" style="margin-top: 7px;"><?php echo date("Y/m/d"); ?></span>
 	</span>
 	</a> <a class="mws-report" href="#"> <span
 		class="mws-report-icon mws-ic ic-building"></span> <span
@@ -123,7 +134,7 @@ $night = Distribution::getMilkQuantities(false);
 </div>
 <h3>
 	<a href="/trans-distreport" style="text-decoration: none;"
-		class="mws-tooltip-n mws-button blue">تعديل كمميات اليوم</a>
+		class="mws-tooltip-n mws-button blue">تعديل كميات اليوم</a>
 </h3>
 <form action="" method="post" autocomplete="off">
     <?php echo Distribution::renderForControl("SELECT * FROM farmers WHERE status = 1", "Farmer"); ?>

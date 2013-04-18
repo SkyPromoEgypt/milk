@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	/* Core JS Functions */
 	
 	/* Collapsible Panels */
 	$(".mws-panel.mws-collapsible .mws-panel-header")
